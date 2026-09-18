@@ -336,6 +336,21 @@ const CONTACT = {
     });
   }
 
+  /* ---------- רשת ביטחון לתמונות ---------- */
+  /* ב-iOS Safari תמונה בתוך פריסת טורים יכולה "להיתקע" בלי להיטען,
+     והכרטיס נראה ריק. בודקים אחרי הטעינה ומאלצים משיכה מחדש. */
+  const rescueImages = () => {
+    $$('img').forEach(img => {
+      if (img.complete && img.naturalWidth > 0) return;
+      const src = img.getAttribute('src');
+      if (!src) return;
+      img.removeAttribute('loading');
+      img.src = src;                       // השמה מחדש מפעילה משיכה
+    });
+  };
+  window.addEventListener('load', () => setTimeout(rescueImages, 1200));
+  setTimeout(rescueImages, 4000);
+
   /* ---------- שנה בפוטר ---------- */
   const year = $('#year');
   if (year) year.textContent = new Date().getFullYear();
