@@ -126,6 +126,46 @@ const CONTACT = {
   /* ---------- סינון עבודות ---------- */
   const cards = $$('.card');
 
+  /* מספור לפי הסדר שבו העין פוגשת את הכרטיסים על המסך.
+     בפריסת טורים סדר ה-DOM שונה מהסדר הוויזואלי, אז מודדים בפועל. */
+  const renumber = () => {
+    const rtl = getComputedStyle(document.documentElement).direction === 'rtl';
+    cards
+      .filter(c => !c.hidden)
+      .map(c => {
+        const b = c.getBoundingClientRect();
+        // בפריסת טורים אין "שורות", אז ממיינים לפי הגובה בפועל
+        // ומשתמשים ב-x רק כשוברי שוויון (ראש הטורים).
+        return { c, top: Math.round(b.top), x: b.left };
+      })
+      .sort((a, b) => (a.top - b.top) || (rtl ? b.x - a.x : a.x - b.x))
+      .forEach((it, i) => {
+        $('.card__btn', it.c).dataset.n = String(i + 1).padStart(2, '0');
+      });
+  };
+
+  // setTimeout ולא requestAnimationFrame: בלשונית מוסתרת rAF נעצר,
+  // והמספור היה נשאר תקוע על פריסה ישנה.
+  let numTimer = 0;
+  const queueRenumber = () => {
+    clearTimeout(numTimer);
+    numTimer = setTimeout(renumber, 80);
+  };
+
+  renumber();
+  window.addEventListener('resize', queueRenumber, { passive: true });
+  window.addEventListener('load', queueRenumber);
+
+  // כל תמונה שנטענת משנה את גובה הטור ואיתו את הסדר הוויזואלי.
+  // ResizeObserver על הרשת תופס כל שינוי כזה, כולל טעינה עצלה.
+  const grid = $('#worksGrid');
+  if (grid && 'ResizeObserver' in window) {
+    new ResizeObserver(queueRenumber).observe(grid);
+  }
+  $$('.card img').forEach(img => {
+    if (!img.complete) img.addEventListener('load', queueRenumber, { once: true });
+  });
+
   $$('.chip').forEach(chip => {
     chip.addEventListener('click', () => {
       const f = chip.dataset.filter;
@@ -140,6 +180,8 @@ const CONTACT = {
         const tags = (card.dataset.tags || '').split(' ');
         card.hidden = !(f === 'all' || tags.includes(f));
       });
+
+      renumber();
     });
   });
 

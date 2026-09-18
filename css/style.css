@@ -423,9 +423,10 @@ figure{margin:0}
   line-height:0;
   transition:box-shadow .5s var(--ease), border-color .5s var(--ease), transform .5s var(--ease);
 }
-/* מספר סידורי — מתמספר מחדש לבד בכל סינון, כי אלמנט מוסתר לא מייצר תיבה */
+/* המספר מגיע מ-data-n ש-JS מחשב לפי המיקום על המסך.
+   מונה CSS היה סופר לפי סדר ה-DOM, ובפריסת טורים זה יוצא מבולגן. */
 .card__btn::before{
-  content:counter(w, decimal-leading-zero);
+  content:attr(data-n);
   position:absolute;z-index:2;
   inset-block-start:13px;inset-inline-start:13px;
   font-family:var(--ff-dis);
@@ -884,7 +885,8 @@ figure{margin:0}
 }
 .scene__art{
   position:relative;
-  margin:0;
+  width:fit-content;
+  margin-inline:auto;
   line-height:0;
   border:8px solid var(--cream);
   border-radius:8px;
@@ -911,18 +913,19 @@ figure{margin:0}
     transparent 48%);
   pointer-events:none;
 }
+/* האיור מוצג במלואו — הגובה קובע, הרוחב נגזר. בלי חיתוך. */
 .scene__art img{
-  width:100%;
-  max-height:min(62vh,580px);
-  object-fit:cover;
-  object-position:center top;
+  width:auto;
+  height:min(68vh, 640px);
+  object-fit:contain;
 }
 
 /* בבואה על הרצפה — זה מה שמוכר את התלת-ממד */
 .scene__reflect{
   position:relative;
-  margin-top:6px;
-  height:120px;
+  width:fit-content;
+  margin:6px auto 0;
+  height:110px;
   overflow:hidden;
   line-height:0;
   border-radius:0 0 8px 8px;
@@ -939,11 +942,10 @@ figure{margin:0}
   transition:transform .35s var(--ease);
 }
 .scene__reflect img{
-  width:100%;
-  max-height:min(62vh,580px);
-  object-fit:cover;
-  object-position:center top;
-  transform:translateY(calc(-1 * min(62vh,580px) + 120px));
+  width:auto;
+  height:min(68vh, 640px);
+  object-fit:contain;
+  transform:translateY(calc(-1 * min(68vh, 640px) + 110px));
 }
 .scene__title{
   font-size:var(--fs-h2);
@@ -958,6 +960,13 @@ figure{margin:0}
   text-shadow:0 0 46px rgba(232,56,47,.4);
 }
 .scene__lead{color:var(--cream-soft);max-width:46ch;margin-bottom:30px}
+.scene__lead b{
+  display:block;
+  margin-bottom:8px;
+  font-size:1.18em;font-weight:900;
+  color:var(--cream);
+  letter-spacing:-.01em;
+}
 .scene__actions{display:flex;flex-wrap:wrap;gap:14px}
 
 /* --- העבודות --- */
@@ -1210,16 +1219,13 @@ figure{margin:0}
 
   /* בנייד: הטיה מתונה יותר, מסגור ל-3:4, ובבואה נמוכה */
   .scene__inner{grid-template-columns:1fr;gap:34px}
+  /* גם בנייד האיור שלם — הגובה מוגבל, הרוחב נגזר */
   .scene__stage{--ry:-9deg;--rx:4deg;perspective:900px}
-  .scene__art{width:min(330px,82vw);margin-inline:auto;aspect-ratio:3/4}
-  .scene__art img{height:100%;max-height:none;object-position:center 20%}
-  .scene__reflect{
-    width:min(330px,82vw);margin-inline:auto;height:76px;
-  }
+  .scene__art img{height:min(56vh, 430px)}
+  .scene__reflect{height:76px}
   .scene__reflect img{
-    height:auto;max-height:none;
-    aspect-ratio:3/4;object-position:center 20%;
-    transform:translateY(calc(-1 * (min(330px,82vw) * 4 / 3) + 76px));
+    height:min(56vh, 430px);
+    transform:translateY(calc(-1 * min(56vh, 430px) + 76px));
   }
   .scene__halo{inset:4% 6% 16%;filter:blur(34px)}
   .scene__actions .btn{flex:1;min-height:var(--tap)}
