@@ -7,11 +7,11 @@
 
 const CONTACT = {
   // עמוד האינסטגרם
-  instagram: 'https://www.instagram.com/almog.alonn/',
+  instagram: 'https://www.instagram.com/almog.alonn',
 
-  // מספר וואטסאפ בפורמט בינלאומי, בלי 0 בהתחלה ובלי סימנים.
-  // דוגמה: '972501234567'.  השאר ריק ('') והכפתור פשוט לא יופיע.
-  whatsapp: '',
+  // מספר טלפון ישראלי, בדיוק כמו שמחייגים אותו בארץ.
+  // ממנו נבנים גם כפתור החיוג וגם קישור הוואטסאפ.
+  phone: '0544478819',
 
   // ההודעה שתופיע מוכנה בוואטסאפ
   whatsappText: 'היי אלמוג! ראיתי את תיק העבודות ואשמח לקבוע תור'
@@ -32,35 +32,45 @@ const CONTACT = {
   window.addEventListener('load', () => setTimeout(hidePreloader, reduced ? 0 : 450));
   setTimeout(hidePreloader, 3000); // רשת איטית — לא נתקעים
 
-  /* ---------- קישורי יצירת קשר ---------- */
-  $$('[data-ig]').forEach(el => {
-    el.href = CONTACT.instagram;
-    el.target = '_blank';
-    el.rel = 'noopener';
-  });
+  /* ---------- טלפון: מקומי → בינלאומי → תצוגה ---------- */
+  const digits = (CONTACT.phone || '').replace(/\D/g, '');
+  // 0544478819 → 972544478819
+  const intl = digits.startsWith('0') ? '972' + digits.slice(1) : digits;
+  // 0544478819 → 054-447-8819
+  const pretty = digits.length === 10
+    ? `${digits.slice(0, 3)}-${digits.slice(3, 6)}-${digits.slice(6)}`
+    : CONTACT.phone;
 
-  const wa = CONTACT.whatsapp.replace(/\D/g, '');
-  $$('[data-wa]').forEach(el => {
-    if (!wa) { el.hidden = true; return; }
-    el.hidden = false;
-    el.href = `https://wa.me/${wa}?text=${encodeURIComponent(CONTACT.whatsappText)}`;
-    el.target = '_blank';
-    el.rel = 'noopener';
-  });
+  const wire = (sel, href, external) => {
+    $$(sel).forEach(el => {
+      if (!href) { el.hidden = true; return; }
+      el.hidden = false;
+      el.href = href;
+      if (external) { el.target = '_blank'; el.rel = 'noopener'; }
+    });
+  };
 
-  /* ---------- ניווט: מצב גלילה, פס התקדמות, חזרה למעלה ---------- */
+  wire('[data-ig]', CONTACT.instagram, true);
+  wire('[data-tel]', digits ? `tel:+${intl}` : '', false);
+  wire('[data-wa]', digits ? `https://wa.me/${intl}?text=${encodeURIComponent(CONTACT.whatsappText)}` : '', true);
+  $$('[data-tel-label]').forEach(el => { el.textContent = pretty; });
+
+  /* ---------- ניווט: מצב גלילה, פס התקדמות, סרגל פעולה, חזרה למעלה ---------- */
   const nav = $('#nav');
   const bar = $('#progress');
   const toTop = $('#toTop');
+  const actionbar = $('#actionbar');
 
   let ticking = false;
   const onScroll = () => {
     const y = window.scrollY;
     const max = document.documentElement.scrollHeight - window.innerHeight;
+    const past = y > window.innerHeight * 0.7;
 
     nav.classList.toggle('is-stuck', y > 40);
     if (bar) bar.style.width = (max > 0 ? (y / max) * 100 : 0) + '%';
-    if (toTop) toTop.hidden = y < window.innerHeight * 0.8;
+    if (toTop) toTop.hidden = !past;
+    if (actionbar) actionbar.classList.toggle('is-up', past);
     ticking = false;
   };
   window.addEventListener('scroll', () => {
@@ -102,7 +112,7 @@ const CONTACT = {
         e.target.classList.add('is-in');
         obs.unobserve(e.target);
       });
-    }, { rootMargin: '0px 0px -12% 0px', threshold: 0.08 });
+    }, { rootMargin: '0px 0px -10% 0px', threshold: 0.06 });
     revealEls.forEach(el => io.observe(el));
   }
 
