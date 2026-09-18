@@ -1,0 +1,391 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>אלמוג אלון · ספר — תיק עבודות</title>
+<meta name="description" content="מהמגרש לכיסא. תיק העבודות של אלמוג אלון — ספר. פייד, זקן, תספורות ילדים ועיצובים בשיער.">
+<meta name="theme-color" content="#09244A">
+<meta name="color-scheme" content="dark">
+
+<!-- ✏️ אם שם המאגר ב-GitHub משתנה — עדכן את שתי הכתובות המלאות כאן ואת ה-canonical -->
+<link rel="canonical" href="https://mlwn930-sudo.github.io/ALMOG-ALON-/">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://mlwn930-sudo.github.io/ALMOG-ALON-/">
+<meta property="og:title" content="אלמוג אלון · ספר — תיק עבודות">
+<meta property="og:description" content="מהמגרש לכיסא. הדיוק נשאר.">
+<meta property="og:image" content="https://mlwn930-sudo.github.io/ALMOG-ALON-/assets/og.jpg">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:locale" content="he_IL">
+<meta name="twitter:card" content="summary_large_image">
+
+<link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="assets/icon.png">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Heebo:wght@300;400;500;700;800;900&family=Anton&display=swap">
+<link rel="stylesheet" href="css/style.css">
+</head>
+
+<body>
+
+<!-- ============ מסך פתיחה ============ -->
+<div class="preloader" id="preloader" aria-hidden="true">
+  <div class="preloader__pole"></div>
+</div>
+
+<div class="progress" id="progress" aria-hidden="true"></div>
+
+<a class="skip-link" href="#works">דלג לעבודות</a>
+
+<!-- ============ ניווט ============ -->
+<header class="nav" id="nav">
+  <div class="wrap nav__inner">
+    <a class="brand" href="#top" aria-label="אלמוג אלון — לראש הדף">
+      <span class="brand__pole" aria-hidden="true"></span>
+      <span class="brand__text">
+        <strong>אלמוג אלון</strong>
+        <small>BARBER</small>
+      </span>
+    </a>
+
+    <nav class="nav__links" id="menu" aria-label="ניווט ראשי">
+      <a href="#story">הסיפור</a>
+      <a href="#works">העבודות</a>
+      <a href="#services">השירותים</a>
+      <a href="#contact">צור קשר</a>
+      <a class="btn btn--sm btn--red nav__cta" href="#contact">קביעת תור</a>
+    </nav>
+
+    <button class="burger" id="burger" aria-label="תפריט" aria-expanded="false" aria-controls="menu">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+</header>
+
+<main id="top">
+
+<!-- ============ HERO ============ -->
+<section class="hero">
+  <div class="hero__bg" aria-hidden="true"></div>
+  <div class="hero__glow" aria-hidden="true"></div>
+
+  <div class="wrap hero__inner">
+    <div class="hero__copy">
+      <p class="eyebrow reveal">תיק עבודות · <span>BARBER</span></p>
+
+      <h1 class="hero__title">
+        <span class="line reveal">מהמגרש</span>
+        <span class="line reveal" data-d="1">לכיסא.</span>
+        <span class="line line--red reveal" data-d="2">הדיוק נשאר.</span>
+      </h1>
+
+      <p class="hero__lead reveal" data-d="3">
+        אלמוג אלון. כל תספורת מתחילה בהקשבה, ונגמרת בפרטים הקטנים
+        שאף אחד חוץ ממנו לא שם לב אליהם.
+      </p>
+
+      <div class="hero__actions reveal" data-d="4">
+        <a class="btn btn--red" href="#works">לעבודות שלי</a>
+        <a class="btn btn--ghost" href="#story">הסיפור שלו</a>
+      </div>
+
+      <ul class="hero__chips reveal" data-d="5">
+        <li>פייד ומעברי עור</li>
+        <li>עיצוב זקן</li>
+        <li>ילדים</li>
+        <li>עיצובים בשיער</li>
+      </ul>
+    </div>
+
+    <div class="hero__poster reveal" data-d="2">
+      <div class="poster">
+        <img src="assets/logo.jpg" alt="פוסטר הלוגו של אלמוג אלון — ספר" width="780" height="1696" fetchpriority="high" decoding="async">
+      </div>
+    </div>
+  </div>
+
+  <a class="scroll-cue" href="#story" aria-label="גלול למטה"><span></span></a>
+</section>
+
+<!-- ============ פס נע ============ -->
+<div class="ticker" aria-hidden="true">
+  <div class="ticker__track">
+    <span>SKIN FADE ✦ BEARD ✦ KIDS ✦ HAIR DESIGN ✦ CLASSIC CUT ✦ TAPER ✦</span>
+    <span>SKIN FADE ✦ BEARD ✦ KIDS ✦ HAIR DESIGN ✦ CLASSIC CUT ✦ TAPER ✦</span>
+  </div>
+</div>
+
+<!-- ============ הסיפור ============ -->
+<section class="section story" id="story">
+  <div class="wrap">
+    <header class="section__head">
+      <p class="kicker reveal">הסיפור</p>
+      <h2 class="section__title reveal" data-d="1">הוא התחיל<br><em>במגרש.</em></h2>
+    </header>
+
+    <div class="story__grid">
+      <div class="story__lead reveal">
+        <p>
+          כדורגל היה הדבר הראשון שבאמת דיבר לאלמוג. כישרון לא רגיל, ראש של שחקן,
+          ואהבה שהכתיבה כל שבוע בלוח הזמנים. ואז הגיע הרגע שבו הוא בחר לפרוש.
+        </p>
+        <p>
+          מה שנשאר אחרי זה היה שקט — ושאלה אחת שלא הרפתה:
+          מה הדבר הבא שיצליח לרגש אותו כמו שהמגרש ריגש?
+        </p>
+        <p class="story__punch">הוא חיפש. הוא מצא.</p>
+      </div>
+
+      <ol class="timeline">
+        <li class="timeline__item reveal">
+          <span class="timeline__dot" aria-hidden="true"></span>
+          <h3>המגרש</h3>
+          <p>שנים של אימונים, משמעת ותחרות. שם הוא למד שהבדל של סנטימטר הוא הבדל של הכול.</p>
+        </li>
+        <li class="timeline__item reveal" data-d="1">
+          <span class="timeline__dot" aria-hidden="true"></span>
+          <h3>הפרישה</h3>
+          <p>לא כי האהבה נגמרה — כי החיים לקחו לכיוון אחר. ההחלטה הייתה קשה, והיא הייתה שלו.</p>
+        </li>
+        <li class="timeline__item reveal" data-d="2">
+          <span class="timeline__dot" aria-hidden="true"></span>
+          <h3>החיפוש</h3>
+          <p>הוא חיפש דבר אחד: משהו שדורש אימון, סבלנות ודיוק — ומחזיר את אותה תחושה.</p>
+        </li>
+        <li class="timeline__item reveal" data-d="3">
+          <span class="timeline__dot" aria-hidden="true"></span>
+          <h3>המספריים</h3>
+          <p>מגיל צעיר הוא כבר בעסק של שניר מאיר. מסתכל, לומד, מתאמן שעות — עד שהיד התחילה לדעת לבד.</p>
+        </li>
+        <li class="timeline__item reveal" data-d="4">
+          <span class="timeline__dot timeline__dot--red" aria-hidden="true"></span>
+          <h3>היום</h3>
+          <p>אותה משמעת שהוא הביא לאימונים עברה למספריים. והדבר שהכי חשוב לו פשוט: שמי שקם מהכיסא ירגיש טוב עם עצמו.</p>
+        </li>
+      </ol>
+    </div>
+  </div>
+</section>
+
+<!-- ============ העבודות ============ -->
+<section class="section works" id="works">
+  <div class="wrap">
+    <header class="section__head section__head--row">
+      <div>
+        <p class="kicker reveal">העבודות</p>
+        <h2 class="section__title reveal" data-d="1">הכיסא<br><em>מדבר בעצמו.</em></h2>
+      </div>
+      <p class="section__note reveal" data-d="2">לחיצה על תמונה פותחת אותה במסך מלא.</p>
+    </header>
+
+    <div class="filters reveal" role="tablist" aria-label="סינון עבודות">
+      <button class="chip is-on" data-filter="all" role="tab" aria-selected="true">הכל</button>
+      <button class="chip" data-filter="men" role="tab" aria-selected="false">גברים</button>
+      <button class="chip" data-filter="kids" role="tab" aria-selected="false">ילדים</button>
+      <button class="chip" data-filter="design" role="tab" aria-selected="false">עיצובים</button>
+    </div>
+
+    <div class="works__grid" id="worksGrid">
+
+      <figure class="card reveal" data-tags="men" data-i="0">
+        <button class="card__btn" type="button" aria-label="הגדלת תמונה: פייד עור עם טקסטורה למעלה">
+          <img src="assets/work/work-1.jpg" alt="תספורת גבר — פייד עור עם טקסטורה למעלה וקו חזית מעוצב" width="920" height="1225" loading="lazy" decoding="async">
+          <span class="card__veil" aria-hidden="true"></span>
+        </button>
+        <figcaption>
+          <span class="card__tag">גברים</span>
+          פייד עור עם טקסטורה למעלה
+        </figcaption>
+      </figure>
+
+      <figure class="card reveal" data-d="1" data-tags="men" data-i="1">
+        <button class="card__btn" type="button" aria-label="הגדלת תמונה: פייד קצר עם קו חזית ישר">
+          <img src="assets/work/work-2.jpg" alt="תספורת גבר — פייד קצר, קו חזית ישר ומעבר נקי אל הזקן" width="920" height="972" loading="lazy" decoding="async">
+          <span class="card__veil" aria-hidden="true"></span>
+        </button>
+        <figcaption>
+          <span class="card__tag">גברים</span>
+          קו חזית ישר, מעבר נקי לזקן
+        </figcaption>
+      </figure>
+
+      <figure class="card reveal" data-d="2" data-tags="men" data-i="2">
+        <button class="card__btn" type="button" aria-label="הגדלת תמונה: תלתלים עם טייפר רך">
+          <img src="assets/work/work-3.jpg" alt="תספורת גבר — תלתלים למעלה עם טייפר רך בצדדים" width="920" height="1148" loading="lazy" decoding="async">
+          <span class="card__veil" aria-hidden="true"></span>
+        </button>
+        <figcaption>
+          <span class="card__tag">גברים</span>
+          תלתלים עם טייפר רך
+        </figcaption>
+      </figure>
+
+      <figure class="card reveal" data-tags="men" data-i="3">
+        <button class="card__btn" type="button" aria-label="הגדלת תמונה: עורף נקי ומעבר בלתי נראה">
+          <img src="assets/work/work-4.jpg" alt="תספורת גבר מאחור — עורף נקי ומעבר בלתי נראה" width="920" height="1225" loading="lazy" decoding="async">
+          <span class="card__veil" aria-hidden="true"></span>
+        </button>
+        <figcaption>
+          <span class="card__tag">גברים</span>
+          עורף נקי, מעבר בלתי נראה
+        </figcaption>
+      </figure>
+
+      <figure class="card reveal" data-d="1" data-tags="kids design" data-i="4">
+        <button class="card__btn" type="button" aria-label="הגדלת תמונה: תספורת ילדים עם עיצוב בתער">
+          <img src="assets/work/work-5.jpg" alt="תספורת ילדים — פייד עם עיצוב קווים בתער בצד" width="920" height="921" loading="lazy" decoding="async">
+          <span class="card__veil" aria-hidden="true"></span>
+        </button>
+        <figcaption>
+          <span class="card__tag">ילדים</span>
+          עיצוב קווים בתער
+        </figcaption>
+      </figure>
+
+      <figure class="card reveal" data-d="2" data-tags="kids design" data-i="5">
+        <button class="card__btn" type="button" aria-label="הגדלת תמונה: בלונד פלטינום עם מעבר עור">
+          <img src="assets/work/work-6.jpg" alt="תספורת ילדים — בלונד פלטינום עם מעבר עור ועיצוב בתער" width="920" height="961" loading="lazy" decoding="async">
+          <span class="card__veil" aria-hidden="true"></span>
+        </button>
+        <figcaption>
+          <span class="card__tag">ילדים</span>
+          בלונד פלטינום + מעבר עור
+        </figcaption>
+      </figure>
+
+    </div>
+
+    <p class="works__more reveal">
+      עוד עבודות מתעדכנות כל הזמן —
+      <a href="#" data-ig>באינסטגרם</a>.
+    </p>
+  </div>
+</section>
+
+<!-- ============ השירותים ============ -->
+<section class="section services" id="services">
+  <div class="wrap">
+    <header class="section__head">
+      <p class="kicker reveal">השירותים</p>
+      <h2 class="section__title reveal" data-d="1">מה קורה<br><em>על הכיסא.</em></h2>
+    </header>
+
+    <div class="services__grid">
+      <article class="svc reveal">
+        <span class="svc__num">01</span>
+        <h3>תספורת גבר</h3>
+        <p>גזירה שמותאמת למבנה הפנים ולסוג השיער, עם סיומת מדויקת בתער.</p>
+      </article>
+      <article class="svc reveal" data-d="1">
+        <span class="svc__num">02</span>
+        <h3>פייד ומעבר עור</h3>
+        <p>מהעור עד הטקסטורה שלמעלה — בלי קווים, בלי קפיצות, בלי הפתעות.</p>
+      </article>
+      <article class="svc reveal" data-d="2">
+        <span class="svc__num">03</span>
+        <h3>עיצוב זקן</h3>
+        <p>קו חד, מעבר רך אל הלחי, וגימור נקי שנשאר מסודר גם אחרי שבוע.</p>
+      </article>
+      <article class="svc reveal">
+        <span class="svc__num">04</span>
+        <h3>תספורת ילדים</h3>
+        <p>סבלנות, אווירה נעימה, ותוצאה שהם רוצים להסתכל עליה במראה.</p>
+      </article>
+      <article class="svc reveal" data-d="1">
+        <span class="svc__num">05</span>
+        <h3>עיצובים בשיער</h3>
+        <p>קווים ודוגמאות בתער — מהעדין והמרומז ועד הבולט והחד.</p>
+      </article>
+      <article class="svc reveal" data-d="2">
+        <span class="svc__num">06</span>
+        <h3>בלונד וצבע</h3>
+        <p>הבהרה וצבע בליווי מלא, כולל הסבר מסודר על תחזוקה בבית.</p>
+      </article>
+    </div>
+  </div>
+</section>
+
+<!-- ============ למה אלמוג ============ -->
+<section class="section why">
+  <div class="wrap">
+    <div class="why__grid">
+      <div class="why__item reveal">
+        <h3>קודם מקשיב</h3>
+        <p>לפני שהמכונה נדלקת אלמוג שואל, מבין מה אתה רוצה, ואומר בכנות מה יעבוד לך.</p>
+      </div>
+      <div class="why__item reveal" data-d="1">
+        <h3>דיוק לפני מהירות</h3>
+        <p>לא קמים מהכיסא לפני שכל פרט קטן מסודר. זה לוקח עוד כמה דקות — וזה שווה אותן.</p>
+      </div>
+      <div class="why__item reveal" data-d="2">
+        <h3>כיסא נקי, יחס נקי</h3>
+        <p>כלים מחוטאים, סביבה מסודרת, ואפס לחץ. נכנסים בשקט ויוצאים מרוצים.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ צור קשר ============ -->
+<section class="section contact" id="contact">
+  <div class="stripes" aria-hidden="true"></div>
+  <div class="wrap contact__inner">
+    <p class="kicker reveal">צור קשר</p>
+    <h2 class="contact__title reveal" data-d="1">מוכן לכיסא?</h2>
+    <p class="contact__lead reveal" data-d="2">
+      שלח הודעה, תגיד מתי נוח לך — ואלמוג יחזור אליך עם תור.
+    </p>
+
+    <div class="contact__actions reveal" data-d="3">
+      <a class="btn btn--cream btn--lg" href="#" data-ig>
+        <svg viewBox="0 0 24 24" aria-hidden="true" class="ico"><path d="M12 2.2c3.2 0 3.6 0 4.9.07 1.2.05 1.8.25 2.2.42.6.22 1 .48 1.4.9.4.4.7.8.9 1.4.2.4.4 1 .4 2.2.1 1.3.1 1.7.1 4.9s0 3.6-.1 4.9c0 1.2-.2 1.8-.4 2.2a3.7 3.7 0 0 1-.9 1.4c-.4.4-.8.7-1.4.9-.4.2-1 .4-2.2.4-1.3.1-1.7.1-4.9.1s-3.6 0-4.9-.1c-1.2 0-1.8-.2-2.2-.4a3.7 3.7 0 0 1-1.4-.9 3.7 3.7 0 0 1-.9-1.4c-.2-.4-.4-1-.4-2.2C2.2 15.6 2.2 15.2 2.2 12s0-3.6.1-4.9c0-1.2.2-1.8.4-2.2.2-.6.5-1 .9-1.4.4-.4.8-.7 1.4-.9.4-.2 1-.4 2.2-.4C8.4 2.2 8.8 2.2 12 2.2Zm0 1.8c-3.1 0-3.5 0-4.8.07-1 .05-1.6.2-1.9.35-.5.2-.8.4-1.1.7-.3.3-.5.6-.7 1.1-.1.3-.3.9-.3 1.9-.1 1.3-.1 1.7-.1 4.8s0 3.5.1 4.8c0 1 .2 1.6.3 1.9.2.5.4.8.7 1.1.3.3.6.5 1.1.7.3.1.9.3 1.9.3 1.3.1 1.7.1 4.8.1s3.5 0 4.8-.1c1 0 1.6-.2 1.9-.3.5-.2.8-.4 1.1-.7.3-.3.5-.6.7-1.1.1-.3.3-.9.3-1.9.1-1.3.1-1.7.1-4.8s0-3.5-.1-4.8c0-1-.2-1.6-.3-1.9a2.9 2.9 0 0 0-.7-1.1 2.9 2.9 0 0 0-1.1-.7c-.3-.1-.9-.3-1.9-.35C15.5 4 15.1 4 12 4Zm0 3.1a4.9 4.9 0 1 1 0 9.8 4.9 4.9 0 0 1 0-9.8Zm0 8a3.1 3.1 0 1 0 0-6.2 3.1 3.1 0 0 0 0 6.2Zm6.3-8.2a1.15 1.15 0 1 1-2.3 0 1.15 1.15 0 0 1 2.3 0Z"/></svg>
+        אינסטגרם
+      </a>
+
+      <a class="btn btn--red btn--lg" href="#" data-wa hidden>
+        <svg viewBox="0 0 24 24" aria-hidden="true" class="ico"><path d="M12 2a10 10 0 0 0-8.6 15L2 22l5.2-1.4A10 10 0 1 0 12 2Zm0 18.2a8.2 8.2 0 0 1-4.2-1.2l-.3-.2-3.1.8.8-3-.2-.3A8.2 8.2 0 1 1 12 20.2Zm4.6-6.1c-.25-.13-1.5-.74-1.73-.82-.23-.09-.4-.13-.57.12-.17.25-.65.82-.8.99-.15.17-.3.19-.55.06-.25-.12-1.06-.39-2.02-1.25-.75-.66-1.25-1.48-1.4-1.73-.15-.25-.02-.38.11-.5.11-.11.25-.3.37-.44.12-.15.16-.25.25-.42.08-.17.04-.31-.02-.44-.06-.12-.57-1.37-.78-1.87-.2-.49-.41-.43-.57-.43h-.48c-.17 0-.44.06-.67.31-.23.25-.88.86-.88 2.1s.9 2.43 1.03 2.6c.12.17 1.77 2.7 4.3 3.79.6.26 1.07.41 1.43.53.6.19 1.15.16 1.58.1.48-.07 1.5-.61 1.71-1.2.21-.6.21-1.1.15-1.21-.06-.12-.23-.19-.48-.31Z"/></svg>
+        וואטסאפ
+      </a>
+
+      <button class="btn btn--ghost btn--lg" type="button" id="copyLink">
+        העתקת הקישור
+      </button>
+    </div>
+
+    <p class="contact__small reveal" data-d="4">
+      העבודות מתעדכנות באינסטגרם. הכי מהיר — הודעה בפרטי.
+    </p>
+  </div>
+</section>
+
+</main>
+
+<footer class="footer">
+  <div class="wrap footer__inner">
+    <a class="brand brand--footer" href="#top">
+      <span class="brand__pole" aria-hidden="true"></span>
+      <span class="brand__text"><strong>אלמוג אלון</strong><small>BARBER</small></span>
+    </a>
+    <p class="footer__note">תיק עבודות · <span id="year"></span></p>
+  </div>
+</footer>
+
+<!-- ============ מסך מלא לתמונה ============ -->
+<div class="lightbox" id="lightbox" role="dialog" aria-modal="true" aria-label="תצוגת תמונה" hidden>
+  <button class="lightbox__close" id="lbClose" aria-label="סגירה">&times;</button>
+  <button class="lightbox__nav lightbox__nav--prev" id="lbPrev" aria-label="הקודם">&#8250;</button>
+  <button class="lightbox__nav lightbox__nav--next" id="lbNext" aria-label="הבא">&#8249;</button>
+  <figure class="lightbox__figure">
+    <img id="lbImg" src="" alt="">
+    <figcaption id="lbCap"></figcaption>
+  </figure>
+  <div class="lightbox__count" id="lbCount"></div>
+</div>
+
+<button class="to-top" id="toTop" aria-label="חזרה למעלה" hidden>&uarr;</button>
+
+<script src="js/app.js" defer></script>
+</body>
+</html>
