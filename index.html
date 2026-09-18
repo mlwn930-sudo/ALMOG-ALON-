@@ -92,11 +92,19 @@
         <a class="btn btn--ghost" href="#contact">קביעת תור</a>
       </div>
 
-      <ul class="hero__chips reveal" data-d="5">
-        <li>פייד ומעברי עור</li>
-        <li>עיצוב זקן</li>
-        <li>ילדים</li>
-        <li>עיצובים בשיער</li>
+      <ul class="specbar reveal" data-d="5">
+        <li>
+          <small>הסניף</small>
+          <strong>שניר ומאיר</strong>
+        </li>
+        <li>
+          <small>לקביעת תור</small>
+          <a href="#" dir="ltr" data-tel data-tel-label>054-447-8819</a>
+        </li>
+        <li>
+          <small>מתמחה ב</small>
+          <strong>פייד · זקן · ילדים</strong>
+        </li>
       </ul>
     </div>
 
@@ -112,9 +120,17 @@
 
 <!-- ============ פס נע ============ -->
 <div class="ticker" aria-hidden="true">
-  <div class="ticker__track">
-    <span>SKIN FADE ✦ BEARD ✦ KIDS ✦ HAIR DESIGN ✦ CLASSIC CUT ✦ TAPER ✦</span>
-    <span>SKIN FADE ✦ BEARD ✦ KIDS ✦ HAIR DESIGN ✦ CLASSIC CUT ✦ TAPER ✦</span>
+  <div class="ticker__row">
+    <div class="ticker__track">
+      <span>SKIN FADE ✦ BEARD ✦ KIDS ✦ HAIR DESIGN ✦ CLASSIC CUT ✦ TAPER ✦</span>
+      <span>SKIN FADE ✦ BEARD ✦ KIDS ✦ HAIR DESIGN ✦ CLASSIC CUT ✦ TAPER ✦</span>
+    </div>
+  </div>
+  <div class="ticker__row ticker__row--back">
+    <div class="ticker__track">
+      <span>שניר ומאיר ✦ אלמוג אלון ✦ תיק עבודות ✦ שניר ומאיר ✦ אלמוג אלון ✦</span>
+      <span>שניר ומאיר ✦ אלמוג אלון ✦ תיק עבודות ✦ שניר ומאיר ✦ אלמוג אלון ✦</span>
+    </div>
   </div>
 </div>
 
@@ -174,20 +190,52 @@
   </div>
 </section>
 
+<!-- ============ על הכיסא — הלוח הקולנועי ============ -->
+<section class="scene" aria-labelledby="sceneTitle">
+  <div class="scene__bg" aria-hidden="true"></div>
+  <div class="scene__wash" aria-hidden="true"></div>
+
+  <div class="wrap scene__inner">
+    <figure class="scene__art reveal">
+      <img src="assets/scene.jpg" alt="איור של אלמוג אלון מספר לקוח על כיסא המספרה" width="860" height="1870" loading="lazy" decoding="async">
+    </figure>
+
+    <div class="scene__copy">
+      <p class="kicker reveal">על הכיסא</p>
+      <h2 class="scene__title reveal" data-d="1" id="sceneTitle">
+        כל תספורת<br><em>מקבלת את הזמן שלה.</em>
+      </h2>
+      <p class="scene__lead reveal" data-d="2">
+        הכיסא שלי בסניף שניר ומאיר. אני מקשיב לפני שאני מתחיל,
+        עובד לאט בדיוק במקומות שצריך, ומסיים רק כשהפרטים הקטנים מסודרים.
+      </p>
+      <div class="scene__actions reveal" data-d="3">
+        <a class="btn btn--cream" href="#" data-tel>
+          <svg viewBox="0 0 24 24" aria-hidden="true" class="ico"><path d="M6.6 10.8a15.1 15.1 0 0 0 6.6 6.6l2.2-2.2c.3-.3.7-.4 1-.2 1.1.4 2.3.6 3.6.6.6 0 1 .4 1 1V20c0 .6-.4 1-1 1A17 17 0 0 1 3 4c0-.6.4-1 1-1h3.4c.6 0 1 .4 1 1 0 1.2.2 2.4.6 3.6.1.4 0 .7-.2 1l-2.2 2.2Z"/></svg>
+          לקביעת תור
+        </a>
+        <a class="btn btn--ghost" href="#works">לעבודות</a>
+      </div>
+    </div>
+  </div>
+</section>
+
 <!-- ============ העבודות ============ -->
 <section class="section works" id="works">
   <div class="wrap">
-    <header class="section__head">
-      <p class="kicker reveal">העבודות</p>
-      <h2 class="section__title reveal" data-d="1">הכיסא<br><em>מדבר בעצמו.</em></h2>
-    </header>
+    <header class="section__head section__head--row">
+      <div>
+        <p class="kicker reveal">העבודות</p>
+        <h2 class="section__title reveal" data-d="1">הכיסא<br><em>מדבר בעצמו.</em></h2>
+      </div>
 
-    <div class="filters reveal" role="tablist" aria-label="סינון עבודות">
+      <div class="filters reveal" data-d="2" role="tablist" aria-label="סינון עבודות">
       <button class="chip is-on" data-filter="all" role="tab" aria-selected="true">הכל</button>
       <button class="chip" data-filter="men" role="tab" aria-selected="false">גברים</button>
       <button class="chip" data-filter="kids" role="tab" aria-selected="false">ילדים</button>
       <button class="chip" data-filter="design" role="tab" aria-selected="false">עיצובים</button>
-    </div>
+      </div>
+    </header>
 
     <div class="works__grid" id="worksGrid">
 
@@ -216,6 +264,18 @@
       </figure>
 
       <figure class="card reveal" data-d="2" data-tags="men">
+        <button class="card__btn" type="button" aria-label="הגדלת תמונה: פייד אפור עם זקן מעוצב">
+          <img src="assets/work/work-9.jpg" alt="תספורת גבר — פייד על שיער אפור עם זקן מעוצב ומעבר נקי" width="920" height="988" loading="lazy" decoding="async">
+          <span class="card__veil" aria-hidden="true"></span>
+          <span class="card__zoom" aria-hidden="true"></span>
+        </button>
+        <figcaption>
+          <span class="card__tag">גברים</span>
+          פייד על אפור, זקן מעוצב
+        </figcaption>
+      </figure>
+
+      <figure class="card reveal" data-tags="men">
         <button class="card__btn" type="button" aria-label="הגדלת תמונה: פייד קצר עם קו חזית ישר">
           <img src="assets/work/work-2.jpg" alt="תספורת גבר — פייד קצר, קו חזית ישר ומעבר נקי אל הזקן" width="920" height="972" loading="lazy" decoding="async">
           <span class="card__veil" aria-hidden="true"></span>
@@ -260,6 +320,18 @@
         <figcaption>
           <span class="card__tag">ילדים</span>
           בלונד פלטינום + מעבר עור
+        </figcaption>
+      </figure>
+
+      <figure class="card reveal" data-d="1" data-tags="men">
+        <button class="card__btn" type="button" aria-label="הגדלת תמונה: מעבר עור עם זקן מלא">
+          <img src="assets/work/work-10.jpg" alt="תספורת גבר — מעבר עור בצדדים עם זקן מלא וקו חזית חד" width="920" height="1391" loading="lazy" decoding="async">
+          <span class="card__veil" aria-hidden="true"></span>
+          <span class="card__zoom" aria-hidden="true"></span>
+        </button>
+        <figcaption>
+          <span class="card__tag">גברים</span>
+          מעבר עור עם זקן מלא
         </figcaption>
       </figure>
 
@@ -391,10 +463,7 @@
 
       <a class="btn btn--ghost btn--lg" href="#" data-ig>
         <svg viewBox="0 0 24 24" aria-hidden="true" class="ico"><path d="M12 2.2c3.2 0 3.6 0 4.9.07 1.2.05 1.8.25 2.2.42.6.22 1 .48 1.4.9.4.4.7.8.9 1.4.2.4.4 1 .4 2.2.1 1.3.1 1.7.1 4.9s0 3.6-.1 4.9c0 1.2-.2 1.8-.4 2.2a3.7 3.7 0 0 1-.9 1.4c-.4.4-.8.7-1.4.9-.4.2-1 .4-2.2.4-1.3.1-1.7.1-4.9.1s-3.6 0-4.9-.1c-1.2 0-1.8-.2-2.2-.4a3.7 3.7 0 0 1-1.4-.9 3.7 3.7 0 0 1-.9-1.4c-.2-.4-.4-1-.4-2.2C2.2 15.6 2.2 15.2 2.2 12s0-3.6.1-4.9c0-1.2.2-1.8.4-2.2.2-.6.5-1 .9-1.4.4-.4.8-.7 1.4-.9.4-.2 1-.4 2.2-.4C8.4 2.2 8.8 2.2 12 2.2Zm0 1.8c-3.1 0-3.5 0-4.8.07-1 .05-1.6.2-1.9.35-.5.2-.8.4-1.1.7-.3.3-.5.6-.7 1.1-.1.3-.3.9-.3 1.9-.1 1.3-.1 1.7-.1 4.8s0 3.5.1 4.8c0 1 .2 1.6.3 1.9.2.5.4.8.7 1.1.3.3.6.5 1.1.7.3.1.9.3 1.9.3 1.3.1 1.7.1 4.8.1s3.5 0 4.8-.1c1 0 1.6-.2 1.9-.3.5-.2.8-.4 1.1-.7.3-.3.5-.6.7-1.1.1-.3.3-.9.3-1.9.1-1.3.1-1.7.1-4.8s0-3.5-.1-4.8c0-1-.2-1.6-.3-1.9a2.9 2.9 0 0 0-.7-1.1 2.9 2.9 0 0 0-1.1-.7c-.3-.1-.9-.3-1.9-.35C15.5 4 15.1 4 12 4Zm0 3.1a4.9 4.9 0 1 1 0 9.8 4.9 4.9 0 0 1 0-9.8Zm0 8a3.1 3.1 0 1 0 0-6.2 3.1 3.1 0 0 0 0 6.2Zm6.3-8.2a1.15 1.15 0 1 1-2.3 0 1.15 1.15 0 0 1 2.3 0Z"/></svg>
-        <span class="btn__stack">
-          <small>העבודות החדשות</small>
-          <strong dir="ltr">@almog.alonn</strong>
-        </span>
+        <strong dir="ltr">@almog.alonn</strong>
       </a>
     </div>
 
@@ -402,8 +471,6 @@
       <span class="brand__pole brand__pole--tiny" aria-hidden="true"></span>
       מספר בסניף <strong>שניר ומאיר</strong>
     </p>
-
-    <button class="link-btn reveal" data-d="5" type="button" id="copyLink">העתקת הקישור לדף</button>
   </div>
 </section>
 

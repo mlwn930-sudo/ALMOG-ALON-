@@ -128,6 +128,13 @@ figure{margin:0}
 [id]{scroll-margin-top:92px}
 
 .section__head{margin-bottom:clamp(34px,5vw,62px)}
+.section__head--row{
+  display:flex;
+  flex-wrap:wrap;
+  align-items:flex-end;
+  justify-content:space-between;
+  gap:22px;
+}
 .section__head--center{text-align:center}
 .section__head--center .kicker{justify-content:center}
 .section__head--center .kicker::after{display:none}
@@ -161,6 +168,7 @@ figure{margin:0}
   color:transparent;
   -webkit-text-stroke:2px var(--cream);
   paint-order:stroke fill;
+  text-shadow:0 0 46px rgba(244,238,222,.28);
 }
 
 /* ============ 4) רכיבים ============ */
@@ -324,10 +332,9 @@ figure{margin:0}
 .link-btn:hover{color:var(--cream);border-color:var(--cream)}
 
 /* --- צ'יפים --- */
-.filters{
-  display:flex;flex-wrap:wrap;gap:10px;
-  margin-bottom:clamp(26px,4vw,42px);
-}
+.filters{display:flex;flex-wrap:wrap;gap:10px}
+/* כשהצ'יפים יושבים בתוך כותרת המקטע הם ממלאים את הצד הפנוי שלה */
+.section__head--row .filters{justify-content:flex-end}
 .chip{
   padding:10px 22px;
   border-radius:999px;
@@ -353,9 +360,19 @@ figure{margin:0}
   padding-block:16px;
   position:relative;z-index:2;
 }
+.ticker__row{overflow:hidden}
+.ticker__row+.ticker__row{
+  margin-top:8px;
+  padding-top:8px;
+  border-top:1px solid var(--navy-line);
+}
 .ticker__track{
   display:flex;width:max-content;
   animation:slide 34s linear infinite;
+}
+.ticker__row--back .ticker__track{
+  animation-duration:46s;
+  animation-direction:reverse;
 }
 .ticker__track span{
   font-family:var(--ff-dis);
@@ -365,6 +382,12 @@ figure{margin:0}
   -webkit-text-stroke:1px var(--cream-mute);
   padding-inline-end:26px;
   white-space:nowrap;
+}
+.ticker__row--back .ticker__track span{
+  font-family:var(--ff);
+  font-weight:900;
+  font-size:clamp(.95rem,2.2vw,1.4rem);
+  -webkit-text-stroke:1px rgba(232,56,47,.55);
 }
 @keyframes slide{to{transform:translateX(50%)}}
 
@@ -384,7 +407,12 @@ figure{margin:0}
 @keyframes stripeRun{to{background-position:68px 0}}
 
 /* --- כרטיס עבודה --- */
-.card{margin:0 0 var(--card-gap) 0;break-inside:avoid}
+.card{
+  position:relative;
+  margin:0 0 var(--card-gap) 0;
+  break-inside:avoid;
+  counter-increment:w;
+}
 .card__btn{
   display:block;width:100%;padding:0;
   position:relative;overflow:hidden;
@@ -395,6 +423,23 @@ figure{margin:0}
   line-height:0;
   transition:box-shadow .5s var(--ease), border-color .5s var(--ease), transform .5s var(--ease);
 }
+/* מספר סידורי — מתמספר מחדש לבד בכל סינון, כי אלמנט מוסתר לא מייצר תיבה */
+.card__btn::before{
+  content:counter(w, decimal-leading-zero);
+  position:absolute;z-index:2;
+  inset-block-start:13px;inset-inline-start:13px;
+  font-family:var(--ff-dis);
+  font-size:.78rem;letter-spacing:.12em;line-height:1;
+  color:var(--cream);
+  padding:6px 11px;
+  border-radius:999px;
+  border:1px solid var(--glass-bd);
+  background:rgba(6,26,53,.55);
+  backdrop-filter:blur(8px);
+  transition:background .4s var(--ease), border-color .4s var(--ease);
+}
+.card__btn:hover::before{background:var(--red);border-color:var(--red)}
+
 .card__btn img{
   width:100%;
   transition:transform .9s var(--ease), filter .6s;
@@ -623,6 +668,24 @@ figure{margin:0}
   margin-bottom:26px;
 }
 .hero__title .line{display:block}
+
+/* ברק שנע לאורך הכותרת. מוגן ב-@supports — בלי background-clip הטקסט היה נעלם */
+@supports ((-webkit-background-clip:text) or (background-clip:text)){
+  .hero__title .line:not(.line--red){
+    background-image:linear-gradient(100deg,
+      var(--cream) 34%, #ffffff 46%, var(--cream) 58%);
+    background-size:260% 100%;
+    -webkit-background-clip:text;
+    background-clip:text;
+    color:transparent;
+    animation:sheen 7s linear infinite;
+  }
+}
+@keyframes sheen{
+  from{background-position:260% 0}
+  to{background-position:-160% 0}
+}
+
 .hero__title .line--red{
   color:transparent;
   -webkit-text-stroke:2px var(--red-hot);
@@ -638,14 +701,38 @@ figure{margin:0}
 
 .hero__actions{display:flex;flex-wrap:wrap;gap:14px;margin-bottom:34px}
 
-.hero__chips{display:flex;flex-wrap:wrap;gap:8px}
-.hero__chips li{
-  font-size:.85rem;font-weight:600;
-  padding:8px 16px;border-radius:999px;
+/* פס הנתונים שסוגר את ה-HERO — מחליף שורת צ'יפים שהשאירה שטח מת */
+.specbar{
+  display:flex;flex-wrap:wrap;
+  max-width:640px;
   border:1px solid var(--glass-bd);
+  border-radius:18px;
   background:var(--glass-bg);
-  color:var(--cream-mute);
+  backdrop-filter:blur(8px);
+  box-shadow:var(--sh-card);
+  overflow:hidden;
 }
+.specbar li{
+  flex:1 1 148px;
+  padding:15px 18px;
+  display:flex;flex-direction:column;gap:4px;
+  border-inline-start:1px solid var(--glass-bd);
+}
+.specbar li:first-child{border-inline-start:0}
+.specbar small{
+  font-size:.68rem;font-weight:800;letter-spacing:.2em;
+  color:var(--red-hot);
+}
+.specbar strong,
+.specbar a{
+  font-size:1.02rem;font-weight:800;color:var(--cream);line-height:1.25;
+}
+.specbar a{
+  align-self:flex-start;
+  border-bottom:1px solid transparent;
+  transition:border-color .3s var(--ease);
+}
+.specbar a:hover{border-bottom-color:var(--red-hot)}
 
 .hero__poster{position:relative;display:flex;justify-content:center;align-items:center}
 .hero__poster::before{
@@ -661,7 +748,7 @@ figure{margin:0}
   border:8px solid var(--cream);
   border-radius:6px;
   box-shadow:0 60px 110px -45px #000, 0 0 0 1px rgba(0,0,0,.4);
-  transform:rotate(2.2deg);
+  transform:rotate(2.2deg) translate3d(0, var(--py, 0px), 0);
   transition:transform .8s var(--ease);
   overflow:hidden;
 }
@@ -674,7 +761,7 @@ figure{margin:0}
   background:linear-gradient(115deg,rgba(255,255,255,.22),transparent 42%);
   pointer-events:none;
 }
-.hero__poster:hover .poster{transform:rotate(0deg) scale(1.015)}
+.hero__poster:hover .poster{transform:rotate(0deg) scale(1.015) translate3d(0, var(--py, 0px), 0)}
 
 .scroll-cue{
   position:absolute;inset-block-end:26px;inset-inline:0;
@@ -746,6 +833,72 @@ figure{margin:0}
 }
 .timeline__item p{color:var(--cream-soft);font-size:1rem;max-width:42ch}
 
+/* --- על הכיסא: הלוח הקולנועי --- */
+.scene{
+  position:relative;
+  isolation:isolate;
+  overflow:hidden;
+  padding-block:clamp(66px,9vw,124px);
+}
+/* גרסה זעירה (130px) שהדפדפן מותח — טשטוש חינם במקום filter:blur יקר */
+.scene__bg{
+  position:absolute;inset:0;z-index:-2;
+  background:url("../assets/scene-blur.jpg") center 26% / cover no-repeat;
+  transform:scale(1.08);
+}
+.scene__wash{
+  position:absolute;inset:0;z-index:-1;
+  background:
+    radial-gradient(64% 58% at 22% 46%, rgba(206,32,39,.3), transparent 72%),
+    linear-gradient(180deg,
+      var(--navy-950) 0%,
+      rgba(6,26,53,.74) 18%,
+      rgba(6,26,53,.74) 82%,
+      var(--navy-950) 100%);
+}
+.scene__inner{
+  display:grid;
+  grid-template-columns:.85fr 1.15fr;
+  gap:clamp(30px,5vw,72px);
+  align-items:center;
+}
+.scene__art{
+  position:relative;
+  line-height:0;
+  border:8px solid var(--cream);
+  border-radius:6px;
+  overflow:hidden;
+  transform:rotate(-2.4deg) translate3d(0, var(--py, 0px), 0);
+  box-shadow:0 60px 110px -40px #000, 0 0 90px -24px rgba(19,67,132,.95);
+  transition:transform .8s var(--ease);
+}
+.scene__art::after{
+  content:"";position:absolute;inset:0;
+  background:linear-gradient(115deg,rgba(255,255,255,.18),transparent 44%);
+  pointer-events:none;
+}
+.scene__art:hover{transform:rotate(0deg) scale(1.012) translate3d(0, var(--py, 0px), 0)}
+.scene__art img{
+  width:100%;
+  max-height:min(64vh,600px);
+  object-fit:cover;
+  object-position:center top;
+}
+.scene__title{
+  font-size:var(--fs-h2);
+  font-weight:900;line-height:1;letter-spacing:-.025em;
+  margin-bottom:20px;
+}
+.scene__title em{
+  font-style:normal;
+  color:transparent;
+  -webkit-text-stroke:2px var(--red-hot);
+  paint-order:stroke fill;
+  text-shadow:0 0 46px rgba(232,56,47,.4);
+}
+.scene__lead{color:var(--cream-soft);max-width:46ch;margin-bottom:30px}
+.scene__actions{display:flex;flex-wrap:wrap;gap:14px}
+
 /* --- העבודות --- */
 .works{
   background:
@@ -757,6 +910,7 @@ figure{margin:0}
   --card-gap:clamp(18px,3vw,30px);
   column-count:3;
   column-gap:var(--card-gap);
+  counter-reset:w;
 }
 .works__more{
   margin-top:clamp(26px,4vw,44px);
@@ -880,6 +1034,8 @@ figure{margin:0}
 .contact__actions{
   display:flex;flex-wrap:wrap;gap:14px;justify-content:center;
 }
+.contact__actions .btn{min-height:74px}
+.contact__actions .btn strong{font-size:1.06rem;font-weight:900}
 .contact__place{
   margin-top:30px;
   font-size:1rem;color:var(--cream-soft);
@@ -925,6 +1081,7 @@ figure{margin:0}
   .services__grid{grid-template-columns:repeat(2,1fr)}
   .why__grid{grid-template-columns:repeat(2,1fr)}
   .hero__inner{grid-template-columns:1.1fr .9fr}
+  .scene__inner{grid-template-columns:1fr 1.1fr}
 }
 
 @media (max-width:860px){
@@ -964,6 +1121,15 @@ figure{margin:0}
   .scroll-cue{display:none}
   .hero__actions .btn{flex:1;min-height:var(--tap)}
 
+  .scene__inner{grid-template-columns:1fr;gap:38px}
+  /* כמו הפוסטר — ממסגרים במקום למתוח 650px של גלילה */
+  .scene__art{width:min(340px,82vw);margin-inline:auto;aspect-ratio:3/4}
+  .scene__art img{height:100%;max-height:none;object-position:center 20%}
+  .scene__actions .btn{flex:1;min-height:var(--tap)}
+
+  .section__head--row{flex-direction:column;align-items:flex-start}
+  .section__head--row .filters{justify-content:flex-start}
+
   .story__grid{grid-template-columns:1fr;gap:46px}
   .id-card{max-width:none}
   .why__grid{grid-template-columns:1fr}
@@ -976,7 +1142,29 @@ figure{margin:0}
 }
 
 @media (max-width:620px){
-  .works__grid{column-count:1}
+  /* צמדים במקום טור אחד — חוסך חצי מהגלילה בלי להצטופף */
+  .works__grid{--card-gap:11px;column-count:2}
+
+  /* הכיתוב עובר אל תוך התמונה כדי לא לגנוב גובה */
+  .card figcaption{
+    position:absolute;
+    inset-inline:0;inset-block-end:0;
+    padding:34px 11px 11px;
+    gap:7px;
+    font-size:.76rem;line-height:1.3;
+    background:linear-gradient(to top, rgba(6,26,53,.94) 22%, rgba(6,26,53,.6) 62%, transparent);
+    border-radius:0 0 var(--radius) var(--radius);
+    pointer-events:none;
+  }
+  .card__tag{font-size:.6rem;padding:3px 8px;letter-spacing:.08em}
+  .card__btn::before{inset-block-start:9px;inset-inline-start:9px;font-size:.68rem;padding:5px 9px}
+  /* לפינה הנגדית למספר, כדי שלא ישב על הכיתוב */
+  .card__zoom{
+    inset-block-start:9px;inset-block-end:auto;
+    inset-inline-end:9px;inset-inline-start:auto;
+    width:34px;height:34px;background-size:16px 16px;
+  }
+
   .services__grid{grid-template-columns:1fr}
 
   .btn{padding:14px 24px}
@@ -984,6 +1172,15 @@ figure{margin:0}
   .contact__actions{flex-direction:column}
   .contact__actions .btn{width:100%;justify-content:flex-start;padding-inline:24px}
   .hero__actions{gap:10px}
+
+  /* בפס הנתונים עדיף להיערם מאשר להצטופף */
+  .specbar{flex-direction:column;max-width:none}
+  .specbar li{
+    flex:none;
+    border-inline-start:0;
+    border-block-start:1px solid var(--glass-bd);
+  }
+  .specbar li:first-child{border-block-start:0}
 
   .lightbox__nav{
     inset-block-start:auto;inset-block-end:16px;transform:none;

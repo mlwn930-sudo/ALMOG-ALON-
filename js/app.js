@@ -236,18 +236,27 @@ const CONTACT = {
     x0 = null;
   }, { passive: true });
 
-  /* ---------- העתקת הקישור ---------- */
-  const copyBtn = $('#copyLink');
-  copyBtn && copyBtn.addEventListener('click', async () => {
-    const original = copyBtn.textContent;
-    try {
-      await navigator.clipboard.writeText(location.href.split('#')[0]);
-      copyBtn.textContent = 'הקישור הועתק ✓';
-    } catch {
-      copyBtn.textContent = location.href.split('#')[0];
-    }
-    setTimeout(() => { copyBtn.textContent = original; }, 2200);
-  });
+  /* ---------- פרלקס עדין על שתי היצירות ---------- */
+  /* רק transform, רק ב-rAF, ורק כשהאלמנט במסך — אפס פריסה מחדש. */
+  const floaters = $$('.poster, .scene__art');
+  if (!reduced && floaters.length) {
+    let raf = false;
+    const move = () => {
+      const vh = window.innerHeight;
+      floaters.forEach(el => {
+        const b = el.getBoundingClientRect();
+        if (b.bottom < -200 || b.top > vh + 200) return;
+        const mid = b.top + b.height / 2;
+        const shift = ((mid - vh / 2) / vh) * -26;   // מקסימום ±26px
+        el.style.setProperty('--py', shift.toFixed(1) + 'px');
+      });
+      raf = false;
+    };
+    window.addEventListener('scroll', () => {
+      if (!raf) { raf = true; requestAnimationFrame(move); }
+    }, { passive: true });
+    move();
+  }
 
   /* ---------- שנה בפוטר ---------- */
   const year = $('#year');
