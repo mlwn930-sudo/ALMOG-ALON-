@@ -90,6 +90,10 @@
       <div class="hero__actions reveal" data-d="4">
         <a class="btn btn--red" href="#works">לעבודות שלי</a>
         <a class="btn btn--ghost" href="#contact">קביעת תור</a>
+        <a class="btn btn--pin" href="#where">
+          <svg viewBox="0 0 24 24" aria-hidden="true" class="ico"><path d="M12 2a8 8 0 0 0-8 8c0 5.2 6.6 11.3 7.3 11.9a1 1 0 0 0 1.4 0C13.4 21.3 20 15.2 20 10a8 8 0 0 0-8-8Zm0 11a3 3 0 1 1 0-6 3 3 0 0 1 0 6Z"/></svg>
+          איך מגיעים
+        </a>
       </div>
 
       <ul class="specbar reveal" data-d="5">
@@ -192,13 +196,18 @@
 
 <!-- ============ על הכיסא — הלוח הקולנועי ============ -->
 <section class="scene" aria-labelledby="sceneTitle">
-  <div class="scene__bg" aria-hidden="true"></div>
-  <div class="scene__wash" aria-hidden="true"></div>
+  <div class="scene__floor" aria-hidden="true"></div>
 
   <div class="wrap scene__inner">
-    <figure class="scene__art reveal">
-      <img src="assets/scene.jpg" alt="איור של אלמוג אלון מספר לקוח על כיסא המספרה" width="860" height="1870" loading="lazy" decoding="async">
-    </figure>
+    <div class="scene__stage reveal" id="stage">
+      <div class="scene__halo" aria-hidden="true"></div>
+      <figure class="scene__art">
+        <img src="assets/scene.jpg" alt="איור של אלמוג אלון מספר לקוח על כיסא המספרה" width="860" height="1870" loading="lazy" decoding="async">
+      </figure>
+      <div class="scene__reflect" aria-hidden="true">
+        <img src="assets/scene.jpg" alt="" width="860" height="1870" loading="lazy" decoding="async">
+      </div>
+    </div>
 
     <div class="scene__copy">
       <p class="kicker reveal">על הכיסא</p>
@@ -206,8 +215,8 @@
         כל תספורת<br><em>מקבלת את הזמן שלה.</em>
       </h2>
       <p class="scene__lead reveal" data-d="2">
-        הכיסא שלי בסניף שניר ומאיר. אני מקשיב לפני שאני מתחיל,
-        עובד לאט בדיוק במקומות שצריך, ומסיים רק כשהפרטים הקטנים מסודרים.
+        במגרש למדתי שאף אחד לא זוכר את מי שמיהר. על הכיסא זה אותו דבר —
+        אני מסיים כשהתספורת מדויקת, לא כשהשעון אומר שנגמר הזמן.
       </p>
       <div class="scene__actions reveal" data-d="3">
         <a class="btn btn--cream" href="#" data-tel>
@@ -467,10 +476,21 @@
       </a>
     </div>
 
-    <p class="contact__place reveal" data-d="4">
-      <span class="brand__pole brand__pole--tiny" aria-hidden="true"></span>
-      מספר בסניף <strong>שניר ומאיר</strong>
-    </p>
+    <div class="place reveal" data-d="4" id="where">
+      <div class="place__text">
+        <span class="place__label">
+          <span class="brand__pole brand__pole--tiny" aria-hidden="true"></span>
+          מספר בסניף
+        </span>
+        <strong>שניר ומאיר</strong>
+        <span class="place__addr" data-addr>מתחם ביג פאשן גלילות, רמת השרון</span>
+      </div>
+
+      <a class="btn btn--waze" href="#" data-waze>
+        <svg viewBox="0 0 24 24" aria-hidden="true" class="ico"><path d="M12 2a8 8 0 0 0-8 8c0 5.2 6.6 11.3 7.3 11.9a1 1 0 0 0 1.4 0C13.4 21.3 20 15.2 20 10a8 8 0 0 0-8-8Zm0 11a3 3 0 1 1 0-6 3 3 0 0 1 0 6Z"/></svg>
+        ניווט ב-Waze
+      </a>
+    </div>
   </div>
 </section>
 

@@ -838,51 +838,112 @@ figure{margin:0}
   position:relative;
   isolation:isolate;
   overflow:hidden;
-  padding-block:clamp(66px,9vw,124px);
-}
-/* גרסה זעירה (130px) שהדפדפן מותח — טשטוש חינם במקום filter:blur יקר */
-.scene__bg{
-  position:absolute;inset:0;z-index:-2;
-  background:url("../assets/scene-blur.jpg") center 26% / cover no-repeat;
-  transform:scale(1.08);
-}
-.scene__wash{
-  position:absolute;inset:0;z-index:-1;
+  padding-block:clamp(72px,10vw,136px);
   background:
-    radial-gradient(64% 58% at 22% 46%, rgba(206,32,39,.3), transparent 72%),
-    linear-gradient(180deg,
-      var(--navy-950) 0%,
-      rgba(6,26,53,.74) 18%,
-      rgba(6,26,53,.74) 82%,
-      var(--navy-950) 100%);
+    radial-gradient(72% 58% at 50% 22%, rgba(19,67,132,.5), transparent 74%),
+    radial-gradient(50% 44% at 14% 84%, rgba(206,32,39,.22), transparent 74%),
+    var(--navy-950);
+}
+/* רצפת סטודיו בפרספקטיבה — נותנת לקלף על מה לעמוד */
+.scene__floor{
+  position:absolute;inset-block-end:0;inset-inline:0;
+  height:48%;z-index:-1;
+  background-image:
+    linear-gradient(to right, rgba(244,238,222,.13) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(244,238,222,.13) 1px, transparent 1px);
+  background-size:74px 74px;
+  transform:perspective(560px) rotateX(66deg);
+  transform-origin:bottom center;
+  -webkit-mask-image:linear-gradient(to top, #000 4%, transparent 74%);
+  mask-image:linear-gradient(to top, #000 4%, transparent 74%);
+  opacity:.55;
+  pointer-events:none;
 }
 .scene__inner{
   display:grid;
-  grid-template-columns:.85fr 1.15fr;
+  grid-template-columns:.9fr 1.1fr;
   gap:clamp(30px,5vw,72px);
   align-items:center;
 }
-.scene__art{
+
+/* --- הבמה: הקלף חי במרחב תלת-ממדי אמיתי --- */
+.scene__stage{
   position:relative;
-  line-height:0;
-  border:8px solid var(--cream);
-  border-radius:6px;
-  overflow:hidden;
-  transform:rotate(-2.4deg) translate3d(0, var(--py, 0px), 0);
-  box-shadow:0 60px 110px -40px #000, 0 0 90px -24px rgba(19,67,132,.95);
-  transition:transform .8s var(--ease);
+  perspective:1300px;
+  perspective-origin:50% 45%;
 }
-.scene__art::after{
-  content:"";position:absolute;inset:0;
-  background:linear-gradient(115deg,rgba(255,255,255,.18),transparent 44%);
+/* הילת ניאון מאחורי הקלף, בצבעי האיור */
+.scene__halo{
+  position:absolute;inset:6% 2% 12%;
+  background:
+    radial-gradient(48% 42% at 32% 34%, rgba(19,67,132,.95), transparent 72%),
+    radial-gradient(46% 40% at 72% 66%, rgba(206,32,39,.72), transparent 72%);
+  filter:blur(46px);
+  opacity:.85;
   pointer-events:none;
 }
-.scene__art:hover{transform:rotate(0deg) scale(1.012) translate3d(0, var(--py, 0px), 0)}
+.scene__art{
+  position:relative;
+  margin:0;
+  line-height:0;
+  border:8px solid var(--cream);
+  border-radius:8px;
+  overflow:hidden;
+  transform-style:preserve-3d;
+  transform:
+    translate3d(0, var(--py, 0px), 0)
+    rotateY(var(--ry, -14deg))
+    rotateX(var(--rx, 6deg));
+  box-shadow:
+    0 70px 90px -46px #000,
+    0 0 70px -14px rgba(19,67,132,.85),
+    0 0 140px -34px rgba(206,32,39,.7);
+  transition:transform .35s var(--ease), box-shadow .5s var(--ease);
+  will-change:transform;
+}
+/* השתקפות אור על פני הקלף, נעה עם ההטיה */
+.scene__art::after{
+  content:"";position:absolute;inset:0;
+  background:linear-gradient(
+    115deg,
+    rgba(255,255,255,.3) 0%,
+    rgba(255,255,255,.06) 26%,
+    transparent 48%);
+  pointer-events:none;
+}
 .scene__art img{
   width:100%;
-  max-height:min(64vh,600px);
+  max-height:min(62vh,580px);
   object-fit:cover;
   object-position:center top;
+}
+
+/* בבואה על הרצפה — זה מה שמוכר את התלת-ממד */
+.scene__reflect{
+  position:relative;
+  margin-top:6px;
+  height:120px;
+  overflow:hidden;
+  line-height:0;
+  border-radius:0 0 8px 8px;
+  opacity:.34;
+  transform:
+    rotateY(var(--ry, -14deg))
+    rotateX(var(--rx, 6deg))
+    scaleY(-1);
+  transform-origin:top center;
+  -webkit-mask-image:linear-gradient(to top, transparent 8%, #000 96%);
+  mask-image:linear-gradient(to top, transparent 8%, #000 96%);
+  filter:blur(1.4px);
+  pointer-events:none;
+  transition:transform .35s var(--ease);
+}
+.scene__reflect img{
+  width:100%;
+  max-height:min(62vh,580px);
+  object-fit:cover;
+  object-position:center top;
+  transform:translateY(calc(-1 * min(62vh,580px) + 120px));
 }
 .scene__title{
   font-size:var(--fs-h2);
@@ -1036,12 +1097,37 @@ figure{margin:0}
 }
 .contact__actions .btn{min-height:74px}
 .contact__actions .btn strong{font-size:1.06rem;font-weight:900}
-.contact__place{
-  margin-top:30px;
-  font-size:1rem;color:var(--cream-soft);
-  display:flex;align-items:center;justify-content:center;gap:10px;
+/* --- כרטיס המיקום + ניווט --- */
+.place{
+  margin:34px auto 0;
+  max-width:560px;
+  display:flex;align-items:center;justify-content:space-between;
+  flex-wrap:wrap;gap:18px;
+  padding:18px 22px;
+  border:1px solid var(--glass-bd);
+  border-radius:var(--radius);
+  background:linear-gradient(135deg, rgba(19,67,132,.34), rgba(6,26,53,.2));
+  backdrop-filter:blur(8px);
+  box-shadow:var(--sh-card);
+  text-align:start;
 }
-.contact__place strong{color:var(--cream);font-weight:900}
+.place__text{display:flex;flex-direction:column;gap:3px;line-height:1.35}
+.place__label{
+  display:flex;align-items:center;gap:8px;
+  font-size:.72rem;font-weight:800;letter-spacing:.18em;
+  color:var(--red-hot);
+}
+.place__text strong{font-size:1.15rem;font-weight:900;color:var(--cream)}
+.place__addr{font-size:.94rem;color:var(--cream-mute)}
+
+.btn--waze{
+  --bg:#33CCFF;--bd:#33CCFF;--fg:#04263A;
+  padding:13px 24px;font-size:.98rem;
+}
+.btn--waze:hover{box-shadow:0 16px 36px -14px #33CCFF}
+
+.btn--pin{--bd:var(--glass-bd);--bg:var(--glass-bg)}
+.btn--pin:hover{--bd:#33CCFF;--fg:#8FE4FF}
 
 /* --- פוטר --- */
 .footer{
@@ -1119,13 +1205,29 @@ figure{margin:0}
   .poster{width:100%;aspect-ratio:4/5}
   .poster img{width:100%;height:100%;max-height:none;object-fit:cover;object-position:top center}
   .scroll-cue{display:none}
-  .hero__actions .btn{flex:1;min-height:var(--tap)}
+  /* 140px בסיס — שניים בשורה, השלישי נופל לשורה משלו במקום להצטמק */
+  .hero__actions .btn{flex:1 1 140px;min-height:var(--tap);padding-inline:18px}
 
-  .scene__inner{grid-template-columns:1fr;gap:38px}
-  /* כמו הפוסטר — ממסגרים במקום למתוח 650px של גלילה */
-  .scene__art{width:min(340px,82vw);margin-inline:auto;aspect-ratio:3/4}
+  /* בנייד: הטיה מתונה יותר, מסגור ל-3:4, ובבואה נמוכה */
+  .scene__inner{grid-template-columns:1fr;gap:34px}
+  .scene__stage{--ry:-9deg;--rx:4deg;perspective:900px}
+  .scene__art{width:min(330px,82vw);margin-inline:auto;aspect-ratio:3/4}
   .scene__art img{height:100%;max-height:none;object-position:center 20%}
+  .scene__reflect{
+    width:min(330px,82vw);margin-inline:auto;height:76px;
+  }
+  .scene__reflect img{
+    height:auto;max-height:none;
+    aspect-ratio:3/4;object-position:center 20%;
+    transform:translateY(calc(-1 * (min(330px,82vw) * 4 / 3) + 76px));
+  }
+  .scene__halo{inset:4% 6% 16%;filter:blur(34px)}
   .scene__actions .btn{flex:1;min-height:var(--tap)}
+
+  .place{flex-direction:column;align-items:stretch;text-align:center}
+  .place__text{align-items:center}
+  .place__label{justify-content:center}
+  .place .btn{min-height:var(--tap)}
 
   .section__head--row{flex-direction:column;align-items:flex-start}
   .section__head--row .filters{justify-content:flex-start}

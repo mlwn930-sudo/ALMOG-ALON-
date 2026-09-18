@@ -14,7 +14,10 @@ const CONTACT = {
   phone: '0544478819',
 
   // ההודעה שתופיע מוכנה בוואטסאפ
-  whatsappText: 'היי אלמוג! ראיתי את תיק העבודות ואשמח לקבוע תור'
+  whatsappText: 'היי אלמוג! ראיתי את תיק העבודות ואשמח לקבוע תור',
+
+  // כתובת המספרה. ממנה נבנה גם הטקסט שמוצג וגם קישור הניווט ב-Waze.
+  address: 'מתחם ביג פאשן גלילות, רמת השרון'
 };
 
 /* --------------------------------------------------------- */
@@ -53,7 +56,11 @@ const CONTACT = {
   wire('[data-ig]', CONTACT.instagram, true);
   wire('[data-tel]', digits ? `tel:+${intl}` : '', false);
   wire('[data-wa]', digits ? `https://wa.me/${intl}?text=${encodeURIComponent(CONTACT.whatsappText)}` : '', true);
+  wire('[data-waze]', CONTACT.address
+    ? `https://www.waze.com/ul?q=${encodeURIComponent(CONTACT.address)}&navigate=yes` : '', true);
+
   $$('[data-tel-label]').forEach(el => { el.textContent = pretty; });
+  $$('[data-addr]').forEach(el => { el.textContent = CONTACT.address; });
 
   /* ---------- ניווט: מצב גלילה, פס התקדמות, סרגל פעולה, חזרה למעלה ---------- */
   const nav = $('#nav');
@@ -197,7 +204,9 @@ const CONTACT = {
     document.body.classList.remove('is-locked');
     setTimeout(() => {
       lb.hidden = true;
+      // מרוקנים ולא מסירים — src ריק לא מייצר בקשת רשת מיותרת
       lbImg.removeAttribute('src');
+      lbImg.alt = '';
       lastFocus && lastFocus.focus();
     }, reduced ? 0 : 280);
   };
@@ -238,7 +247,7 @@ const CONTACT = {
 
   /* ---------- פרלקס עדין על שתי היצירות ---------- */
   /* רק transform, רק ב-rAF, ורק כשהאלמנט במסך — אפס פריסה מחדש. */
-  const floaters = $$('.poster, .scene__art');
+  const floaters = $$('.poster');
   if (!reduced && floaters.length) {
     let raf = false;
     const move = () => {
@@ -256,6 +265,33 @@ const CONTACT = {
       if (!raf) { raf = true; requestAnimationFrame(move); }
     }, { passive: true });
     move();
+  }
+
+  /* ---------- הטיה תלת-ממדית של הקלף לפי העכבר ---------- */
+  const stage = $('#stage');
+  const fine = window.matchMedia('(hover: hover) and (pointer: fine)').matches;
+
+  if (stage && fine && !reduced) {
+    const REST_Y = -14, REST_X = 6;   // זווית המנוחה, זהה לברירת המחדל ב-CSS
+    let tilting = false;
+
+    stage.addEventListener('pointermove', e => {
+      if (tilting) return;
+      tilting = true;
+      requestAnimationFrame(() => {
+        const b = stage.getBoundingClientRect();
+        const nx = (e.clientX - b.left) / b.width - 0.5;    // ‎-0.5..0.5
+        const ny = (e.clientY - b.top) / b.height - 0.5;
+        stage.style.setProperty('--ry', (REST_Y + nx * 26).toFixed(2) + 'deg');
+        stage.style.setProperty('--rx', (REST_X - ny * 18).toFixed(2) + 'deg');
+        tilting = false;
+      });
+    });
+
+    stage.addEventListener('pointerleave', () => {
+      stage.style.setProperty('--ry', REST_Y + 'deg');
+      stage.style.setProperty('--rx', REST_X + 'deg');
+    });
   }
 
   /* ---------- שנה בפוטר ---------- */
