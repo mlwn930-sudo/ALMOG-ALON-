@@ -1264,21 +1264,25 @@ html{scrollbar-color:var(--navy-700) var(--navy-950);scrollbar-width:thin}
   margin-bottom:24px;
 }
 .booking__cta{width:100%;max-width:340px}
-/* הודעה, לא אותיות קטנות — זו הדרך היחידה לקבוע תור */
-.booking__note{
-  margin-top:20px;
-  display:inline-flex;align-items:center;gap:8px;
-  padding:9px 16px;
-  border:1px solid rgba(216,180,90,.3);
-  border-radius:999px;
-  background:rgba(216,180,90,.08);
-  font-size:.84rem;font-weight:600;line-height:1.35;
-  color:var(--cream-soft);
-  text-align:start;
+/* הכלל נאמר בראש הכרטיס, לפני הכפתור — לא כאותיות קטנות בסוף */
+.booking__rule{
+  display:flex;align-items:center;justify-content:center;gap:10px;
+  margin:0 auto 20px;
+  padding:12px 18px;
+  border:1px solid rgba(216,180,90,.42);
+  border-radius:14px;
+  background:rgba(216,180,90,.12);
+  font-size:clamp(.92rem,2.2vw,1.02rem);
+  font-weight:700;line-height:1.4;
+  color:var(--cream);
 }
-.booking__note svg{
-  width:16px;height:16px;flex:none;
-  fill:var(--gold);
+.booking__rule strong{color:var(--gold-hi);font-weight:900}
+.booking__rule svg{width:19px;height:19px;flex:none;fill:var(--gold)}
+
+.booking__note{
+  margin-top:16px;
+  font-size:.82rem;
+  color:var(--cream-mute);
 }
 
 /* --- כרטיס המיקום + ניווט --- */
