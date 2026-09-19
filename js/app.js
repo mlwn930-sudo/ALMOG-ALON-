@@ -6,8 +6,11 @@
    ========================================================= */
 
 const CONTACT = {
-  // מערכת התורים של מספרת שניר ומאיר. זו הדרך היחידה לקבוע תור באתר.
-  booking: 'https://tinyurl.com/SNIRMEIR',
+  // אפליקציית התורים של מספרת שניר ומאיר — הדרך היחידה לקבוע תור.
+  // הקישורים נשלפו מ-https://tinyurl.com/SNIRMEIR כדי שהלקוח יגיע ישר לחנות
+  // במקום לעבור דרך דף ביניים.
+  appStore:   'https://apps.apple.com/il/app/id1510003184',
+  googlePlay: 'https://play.google.com/store/apps/details?id=com.easytor.snirmeir',
 
   // כתובת המספרה. ממנה נבנה גם הטקסט שמוצג וגם קישור הניווט ב-Waze.
   address: 'מתחם ביג פאשן גלילות, רמת השרון'
@@ -37,7 +40,10 @@ const CONTACT = {
     });
   };
 
-  wire('[data-book]', CONTACT.booking, true);
+  // רק בכרטיס שלמטה יוצאים החוצה אל החנויות. כל שאר כפתורי "קביעת תור"
+  // מפנים אל הכרטיס עצמו (href="#booking" שכבר ב-HTML) ולא לשום מקום אחר.
+  wire('[data-ios]', CONTACT.appStore, true);
+  wire('[data-android]', CONTACT.googlePlay, true);
   wire('[data-waze]', CONTACT.address
     ? `https://www.waze.com/ul?q=${encodeURIComponent(CONTACT.address)}&navigate=yes` : '', true);
 

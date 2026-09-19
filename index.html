@@ -56,7 +56,7 @@
       <a href="#story">הסיפור שלי</a>
       <a href="#works">העבודות</a>
       <a href="#services">מה אני עושה</a>
-      <a class="btn btn--sm btn--gold nav__cta" href="#" data-book>קביעת תור</a>
+      <a class="btn btn--sm btn--gold nav__cta" href="#booking">קביעת תור</a>
     </nav>
 
     <button class="burger" id="burger" aria-label="תפריט" aria-expanded="false" aria-controls="menu">
@@ -89,7 +89,7 @@
 
       <div class="hero__actions reveal" data-d="4">
         <a class="btn btn--red" href="#works">לעבודות שלי</a>
-        <a class="btn btn--gold" href="#" data-book>קביעת תור</a>
+        <a class="btn btn--gold" href="#booking">קביעת תור</a>
         <a class="btn btn--pin" href="#where">
           <svg viewBox="0 0 24 24" aria-hidden="true" class="ico"><path d="M12 2a8 8 0 0 0-8 8c0 5.2 6.6 11.3 7.3 11.9a1 1 0 0 0 1.4 0C13.4 21.3 20 15.2 20 10a8 8 0 0 0-8-8Zm0 11a3 3 0 1 1 0-6 3 3 0 0 1 0 6Z"/></svg>
           איך מגיעים
@@ -103,7 +103,7 @@
         </li>
         <li>
           <small>קביעת תור</small>
-          <a href="#" data-book>מערכת התורים</a>
+          <a href="#booking">האפליקציה שלנו</a>
         </li>
         <li>
           <small>מתמחה ב</small>
@@ -231,7 +231,7 @@
         בשביל זה אני מגיע כל יום.
       </p>
       <div class="scene__actions reveal" data-d="3">
-        <a class="btn btn--gold" href="#" data-book>
+        <a class="btn btn--gold" href="#booking">
           <svg viewBox="0 0 24 24" aria-hidden="true" class="ico"><path d="M7 2v2H5.5A2.5 2.5 0 0 0 3 6.5v13A2.5 2.5 0 0 0 5.5 22h13a2.5 2.5 0 0 0 2.5-2.5v-13A2.5 2.5 0 0 0 18.5 4H17V2h-2v2H9V2H7Zm12 8v9.5a.5.5 0 0 1-.5.5h-13a.5.5 0 0 1-.5-.5V10h14Zm-9.7 2.3-1.4 1.4 2.8 2.8 5-5-1.4-1.4-3.6 3.6-1.4-1.4Z"/></svg>
           לקביעת תור
         </a>
@@ -384,7 +384,7 @@
 
     <p class="works__more reveal">
       רוצה כזאת?
-      <a href="#" data-book>קבע תור במערכת של המספרה</a>.
+      <a href="#booking">קבע תור באפליקציה של המספרה</a>.
     </p>
   </div>
 </section>
@@ -463,25 +463,39 @@
     <h2 class="contact__title reveal" data-d="1">מוכן לכיסא?</h2>
 
     <!-- קביעת תורים עוברת דרך מערכת התורים של המספרה בלבד -->
-    <div class="booking reveal" data-d="2">
+    <div class="booking reveal" data-d="2" id="booking">
       <span class="booking__glow" aria-hidden="true"></span>
 
       <img class="booking__logo" src="assets/shnir-meir.png"
            alt="הלוגו של מספרת שניר ומאיר" width="460" height="460" decoding="async">
 
       <p class="booking__eyebrow">מספרת שניר ומאיר</p>
+      <p class="booking__line">לקביעת תורים במספרה הטובה בארץ</p>
 
       <p class="booking__rule">
         <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7 1h10a2 2 0 0 1 2 2v18a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V3a2 2 0 0 1 2-2Zm0 4v14h10V5H7Zm5 15.2a1.1 1.1 0 1 1 0 2.2 1.1 1.1 0 0 1 0-2.2Z"/></svg>
-        קביעת תורים מתבצעת <strong>אך ורק דרך האפליקציה</strong>
+        קביעת התורים ניתנת <strong>רק באפליקציה</strong>
       </p>
 
-      <p class="booking__line">לקביעת תורים במספרה הטובה בארץ</p>
+      <p class="booking__apptitle">לאפליקציה שלנו</p>
 
-      <a class="btn btn--gold btn--lg booking__cta" href="#" data-book>
-        <svg viewBox="0 0 24 24" aria-hidden="true" class="ico"><path d="M7 2v2H5.5A2.5 2.5 0 0 0 3 6.5v13A2.5 2.5 0 0 0 5.5 22h13a2.5 2.5 0 0 0 2.5-2.5v-13A2.5 2.5 0 0 0 18.5 4H17V2h-2v2H9V2H7Zm12 8v9.5a.5.5 0 0 1-.5.5h-13a.5.5 0 0 1-.5-.5V10h14Zm-9.7 2.3-1.4 1.4 2.8 2.8 5-5-1.4-1.4-3.6 3.6-1.4-1.4Z"/></svg>
-        פתיחת האפליקציה
-      </a>
+      <div class="stores">
+        <a class="store" href="#" data-ios>
+          <svg class="store__mark" viewBox="0 0 24 24" aria-hidden="true"><path d="M16.4 12.7c0-2.3 1.9-3.4 2-3.5-1.1-1.6-2.8-1.8-3.4-1.8-1.4-.15-2.8.85-3.5.85-.7 0-1.85-.83-3.05-.8-1.55.02-3 .9-3.8 2.3-1.63 2.8-.42 6.96 1.16 9.24.77 1.1 1.7 2.35 2.9 2.3 1.16-.05 1.6-.75 3-.75s1.8.75 3.03.72c1.25-.02 2.05-1.12 2.8-2.23.9-1.28 1.26-2.52 1.28-2.58-.03-.01-2.45-.94-2.47-3.73ZM14.1 5.8c.63-.77 1.06-1.83.94-2.9-.9.04-2 .6-2.66 1.36-.58.68-1.1 1.77-.96 2.8 1.01.08 2.04-.5 2.68-1.26Z"/></svg>
+          <span class="store__text">
+            <small>הורדה מ־</small>
+            <strong>App Store</strong>
+          </span>
+        </a>
+
+        <a class="store" href="#" data-android>
+          <svg class="store__mark" viewBox="0 0 24 24" aria-hidden="true"><path d="M3.6 2.1c-.25.26-.4.66-.4 1.18v17.44c0 .52.15.92.4 1.18l.1.09 9.77-9.77v-.44L3.7 2.01l-.1.09Zm13.16 6.3-3.1-3.1-9.4-5.33c-.34-.2-.66-.22-.9-.06l13.4 8.5Zm0 7.2 3.5-2c.7-.4.7-1.1 0-1.5l-3.5-2-3.4 2.75 3.4 2.75Zm-.35.5-3.1-3.1L3.36 22c.24.16.56.14.9-.06l9.4-5.34 3.1-2.5-.35.02Z"/></svg>
+          <span class="store__text">
+            <small>הורדה מ־</small>
+            <strong>Google Play</strong>
+          </span>
+        </a>
+      </div>
 
       <p class="booking__note">אין קביעת תורים בטלפון או בהודעות</p>
     </div>
@@ -532,7 +546,7 @@
 
 <!-- ============ סרגל פעולה בנייד ============ -->
 <div class="actionbar" id="actionbar" aria-label="קביעת תור מהירה">
-  <a class="actionbar__btn actionbar__btn--book" href="#" data-book>
+  <a class="actionbar__btn actionbar__btn--book" href="#booking">
     <svg viewBox="0 0 24 24" aria-hidden="true" class="ico"><path d="M7 2v2H5.5A2.5 2.5 0 0 0 3 6.5v13A2.5 2.5 0 0 0 5.5 22h13a2.5 2.5 0 0 0 2.5-2.5v-13A2.5 2.5 0 0 0 18.5 4H17V2h-2v2H9V2H7Zm12 8v9.5a.5.5 0 0 1-.5.5h-13a.5.5 0 0 1-.5-.5V10h14Zm-9.7 2.3-1.4 1.4 2.8 2.8 5-5-1.4-1.4-3.6 3.6-1.4-1.4Z"/></svg>
     קביעת תור
   </a>
