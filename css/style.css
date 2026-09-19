@@ -17,6 +17,11 @@
   --red:#CE2027;
   --red-hot:#E8382F;
 
+  /* זהב — נלקח מהלוגו של מספרת שניר ומאיר, ומשמש רק לקביעת תורים */
+  --gold:#D8B45A;
+  --gold-hi:#F0D488;
+  --gold-ink:#20180A;
+
   --cream:#F4EEDE;
   --cream-soft:rgba(244,238,222,.74);
   --cream-mute:rgba(244,238,222,.52);
@@ -68,7 +73,10 @@ body{
   font-size:var(--fs-body);
   font-weight:400;
   line-height:1.75;
-  overflow-x:hidden;
+  /* overflow-x:hidden הופך את ה-body למיכל גלילה (overflow נפתר ל-"hidden auto")
+     ושובר גלילה ו-sticky. clip חוסם גלישה אופקית בלי ליצור מיכל. */
+  overflow-x:hidden;   /* גיבוי לדפדפנים ישנים */
+  overflow-x:clip;
   -webkit-font-smoothing:antialiased;
 }
 
@@ -85,6 +93,17 @@ h1,h2,h3,p{margin:0}
 figure{margin:0}
 
 ::selection{background:var(--red);color:var(--cream)}
+
+/* פס גלילה בצבעי האתר במקום האפור של המערכת */
+html{scrollbar-color:var(--navy-700) var(--navy-950);scrollbar-width:thin}
+::-webkit-scrollbar{width:11px;height:11px}
+::-webkit-scrollbar-track{background:var(--navy-950)}
+::-webkit-scrollbar-thumb{
+  background:var(--navy-700);
+  border-radius:999px;
+  border:3px solid var(--navy-950);
+}
+::-webkit-scrollbar-thumb:hover{background:var(--red)}
 
 :focus-visible{
   outline:3px solid var(--red-hot);
@@ -272,6 +291,9 @@ figure{margin:0}
 }
 .nav__links a:not(.btn):hover{color:var(--cream)}
 .nav__links a:not(.btn):hover::after{width:100%}
+/* המקטע שבו נמצאים כרגע מסומן בקו אדום קבוע */
+.nav__links a.is-here{color:var(--cream)}
+.nav__links a.is-here::after{width:100%;background:var(--red)}
 
 .burger{
   display:none;
@@ -313,6 +335,12 @@ figure{margin:0}
 .btn--cream:hover{box-shadow:0 16px 36px -14px rgba(244,238,222,.6)}
 .btn--ghost{--bd:var(--glass-bd);--bg:var(--glass-bg)}
 .btn--ghost:hover{--bd:var(--cream)}
+/* זהב = קביעת תור. הצבע הזה שמור לפעולה אחת בלבד בכל האתר. */
+.btn--gold{--bg:var(--gold);--bd:var(--gold);--fg:var(--gold-ink)}
+.btn--gold:hover{
+  --bg:var(--gold-hi);--bd:var(--gold-hi);
+  box-shadow:0 18px 40px -14px rgba(216,180,90,.75);
+}
 .btn--sm{padding:10px 20px;font-size:.92rem}
 .btn--lg{padding:15px 30px;font-size:1.05rem;min-height:var(--tap)}
 .ico{width:22px;height:22px;fill:currentColor;flex:none}
@@ -348,6 +376,14 @@ figure{margin:0}
 .chip.is-on{
   background:var(--red);border-color:var(--red);color:var(--cream);
   box-shadow:0 12px 26px -12px var(--red);
+}
+/* מספר העבודות בכל קטגוריה — נכתב מ-JS, לא מוקלד ידנית */
+.chip[data-count]::after{
+  content:attr(data-count);
+  margin-inline-start:8px;
+  font-size:.78em;
+  opacity:.62;
+  font-variant-numeric:tabular-nums;
 }
 
 /* --- פס נע --- */
@@ -616,11 +652,42 @@ figure{margin:0}
 /* ב-RTL "הקודם" יושב מימין ו"הבא" משמאל */
 .lightbox__nav--prev{inset-inline-start:clamp(8px,2vw,28px)}
 .lightbox__nav--next{inset-inline-end:clamp(8px,2vw,28px)}
+.lightbox__bar{
+  position:absolute;inset-block-end:16px;inset-inline:0;
+  display:flex;flex-direction:column;align-items:center;gap:12px;
+  padding-inline:16px;
+}
 .lightbox__count{
-  position:absolute;inset-block-end:18px;inset-inline:0;
   direction:ltr;
-  text-align:center;font-size:.85rem;letter-spacing:.16em;
+  font-size:.85rem;letter-spacing:.16em;
   color:var(--cream-mute);
+}
+/* רצועת ממוזערות — קפיצה ישירה לכל עבודה */
+.lightbox__thumbs{
+  display:flex;gap:8px;
+  max-width:min(92vw,560px);
+  overflow-x:auto;
+  padding:4px;
+  scrollbar-width:none;
+}
+.lightbox__thumbs::-webkit-scrollbar{display:none}
+.lightbox__thumb{
+  flex:none;
+  width:52px;height:64px;
+  padding:0;line-height:0;
+  border-radius:8px;
+  overflow:hidden;
+  border:1px solid var(--glass-bd);
+  opacity:.5;
+  transition:opacity .3s var(--ease), border-color .3s var(--ease), transform .3s var(--ease);
+}
+.lightbox__thumb img{width:100%;height:100%;object-fit:cover}
+.lightbox__thumb:hover{opacity:.85}
+.lightbox__thumb.is-on{
+  opacity:1;
+  border-color:var(--red-hot);
+  transform:translateY(-3px);
+  box-shadow:0 8px 18px -8px var(--red);
 }
 
 /* --- סרגל פעולה בנייד --- */
@@ -644,8 +711,15 @@ figure{margin:0}
   border-radius:999px;
   font-weight:900;font-size:1rem;
 }
-.actionbar__btn--call{background:var(--cream);color:var(--navy-900)}
-.actionbar__btn--wa{background:var(--red);color:var(--cream)}
+.actionbar__btn--book{
+  flex:1.4;
+  background:var(--gold);color:var(--gold-ink);
+  box-shadow:0 12px 30px -14px rgba(216,180,90,.8);
+}
+.actionbar__btn--nav{
+  background:var(--glass-bg);color:var(--cream);
+  border:1px solid var(--glass-bd);
+}
 .actionbar__btn .ico{width:20px;height:20px}
 
 /* --- חזרה למעלה --- */
@@ -1149,6 +1223,53 @@ figure{margin:0}
 }
 .contact__actions .btn{min-height:74px}
 .contact__actions .btn strong{font-size:1.06rem;font-weight:900}
+/* --- כרטיס קביעת התורים --- */
+.booking{
+  position:relative;
+  isolation:isolate;
+  max-width:520px;
+  margin:clamp(26px,4vw,40px) auto clamp(30px,4vw,44px);
+  padding:clamp(28px,4vw,42px) clamp(22px,4vw,38px) clamp(24px,3vw,34px);
+  border:1px solid rgba(216,180,90,.34);
+  border-radius:calc(var(--radius) + 6px);
+  background:
+    linear-gradient(160deg, rgba(216,180,90,.13), rgba(6,26,53,.5) 58%),
+    rgba(6,26,53,.72);
+  backdrop-filter:blur(10px);
+  box-shadow:0 44px 90px -40px #000, 0 0 70px -34px rgba(216,180,90,.8);
+  text-align:center;
+}
+.booking__glow{
+  position:absolute;inset:-30% -12% 40%;z-index:-1;
+  background:radial-gradient(50% 50% at 50% 40%, rgba(216,180,90,.32), transparent 70%);
+  filter:blur(28px);
+  pointer-events:none;
+}
+.booking__logo{
+  width:clamp(92px,17vw,118px);
+  height:auto;
+  margin:0 auto 18px;
+  border-radius:50%;
+  box-shadow:0 0 0 1px rgba(216,180,90,.4), 0 18px 40px -18px #000;
+}
+.booking__eyebrow{
+  font-size:.74rem;font-weight:800;letter-spacing:.24em;
+  color:var(--gold);
+  margin-bottom:10px;
+}
+.booking__line{
+  font-size:clamp(1.18rem,2.6vw,1.5rem);
+  font-weight:900;line-height:1.3;
+  color:var(--cream);
+  margin-bottom:24px;
+}
+.booking__cta{width:100%;max-width:340px}
+.booking__note{
+  margin-top:16px;
+  font-size:.82rem;
+  color:var(--cream-mute);
+}
+
 /* --- כרטיס המיקום + ניווט --- */
 .place{
   margin:34px auto 0;
@@ -1349,8 +1470,9 @@ figure{margin:0}
   }
   .lightbox__nav--prev{inset-inline-start:calc(50% - 60px)}
   .lightbox__nav--next{inset-inline-end:calc(50% - 60px)}
-  .lightbox__count{inset-block-end:78px}
-  .lightbox__figure img{max-height:66vh}
+  .lightbox__bar{inset-block-end:76px}
+  .lightbox__thumb{width:44px;height:54px}
+  .lightbox__figure img{max-height:56vh}
 
   .to-top{inset-inline-start:16px;width:44px;height:44px}
   .footer__inner{justify-content:center;text-align:center}

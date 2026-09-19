@@ -6,15 +6,8 @@
    ========================================================= */
 
 const CONTACT = {
-  // עמוד האינסטגרם
-  instagram: 'https://www.instagram.com/almog.alonn',
-
-  // מספר טלפון ישראלי, בדיוק כמו שמחייגים אותו בארץ.
-  // ממנו נבנים גם כפתור החיוג וגם קישור הוואטסאפ.
-  phone: '0544478819',
-
-  // ההודעה שתופיע מוכנה בוואטסאפ
-  whatsappText: 'היי אלמוג! ראיתי את תיק העבודות ואשמח לקבוע תור',
+  // מערכת התורים של מספרת שניר ומאיר. זו הדרך היחידה לקבוע תור באתר.
+  booking: 'https://tinyurl.com/SNIRMEIR',
 
   // כתובת המספרה. ממנה נבנה גם הטקסט שמוצג וגם קישור הניווט ב-Waze.
   address: 'מתחם ביג פאשן גלילות, רמת השרון'
@@ -35,15 +28,6 @@ const CONTACT = {
   window.addEventListener('load', () => setTimeout(hidePreloader, reduced ? 0 : 450));
   setTimeout(hidePreloader, 3000); // רשת איטית — לא נתקעים
 
-  /* ---------- טלפון: מקומי → בינלאומי → תצוגה ---------- */
-  const digits = (CONTACT.phone || '').replace(/\D/g, '');
-  // 0544478819 → 972544478819
-  const intl = digits.startsWith('0') ? '972' + digits.slice(1) : digits;
-  // 0544478819 → 054-447-8819
-  const pretty = digits.length === 10
-    ? `${digits.slice(0, 3)}-${digits.slice(3, 6)}-${digits.slice(6)}`
-    : CONTACT.phone;
-
   const wire = (sel, href, external) => {
     $$(sel).forEach(el => {
       if (!href) { el.hidden = true; return; }
@@ -53,13 +37,10 @@ const CONTACT = {
     });
   };
 
-  wire('[data-ig]', CONTACT.instagram, true);
-  wire('[data-tel]', digits ? `tel:+${intl}` : '', false);
-  wire('[data-wa]', digits ? `https://wa.me/${intl}?text=${encodeURIComponent(CONTACT.whatsappText)}` : '', true);
+  wire('[data-book]', CONTACT.booking, true);
   wire('[data-waze]', CONTACT.address
     ? `https://www.waze.com/ul?q=${encodeURIComponent(CONTACT.address)}&navigate=yes` : '', true);
 
-  $$('[data-tel-label]').forEach(el => { el.textContent = pretty; });
   $$('[data-addr]').forEach(el => { el.textContent = CONTACT.address; });
 
   /* ---------- ניווט: מצב גלילה, פס התקדמות, סרגל פעולה, חזרה למעלה ---------- */
@@ -123,8 +104,33 @@ const CONTACT = {
     revealEls.forEach(el => io.observe(el));
   }
 
+  /* ---------- ניווט: סימון המקטע שבו נמצאים ---------- */
+  const spyLinks = $$('.nav__links a[href^="#"]:not(.btn)');
+  const spyTargets = spyLinks
+    .map(a => ({ a, sec: $(a.getAttribute('href')) }))
+    .filter(t => t.sec);
+
+  if (spyTargets.length && 'IntersectionObserver' in window) {
+    const spy = new IntersectionObserver(entries => {
+      entries.forEach(e => {
+        const hit = spyTargets.find(t => t.sec === e.target);
+        if (hit) hit.a.classList.toggle('is-here', e.isIntersecting);
+      });
+    }, { rootMargin: '-45% 0px -45% 0px' });
+    spyTargets.forEach(t => spy.observe(t.sec));
+  }
+
   /* ---------- סינון עבודות ---------- */
   const cards = $$('.card');
+
+  // כמה עבודות בכל קטגוריה — נכתב לצ'יפים כדי שלא יצטרכו לנחש
+  $$('.chip').forEach(chip => {
+    const f = chip.dataset.filter;
+    const n = f === 'all'
+      ? cards.length
+      : cards.filter(c => (c.dataset.tags || '').split(' ').includes(f)).length;
+    chip.dataset.count = n;
+  });
 
   /* מספור לפי הסדר שבו העין פוגשת את הכרטיסים על המסך.
      בפריסת טורים סדר ה-DOM שונה מהסדר הוויזואלי, אז מודדים בפועל. */
@@ -230,6 +236,36 @@ const CONTACT = {
     const one = total < 2;
     $('#lbPrev').hidden = one;
     $('#lbNext').hidden = one;
+
+    buildThumbs(list);
+  };
+
+  /* רצועת תמונות ממוזערות — קפיצה ישירה בלי ללחוץ "הבא" שבע פעמים */
+  const lbThumbs = $('#lbThumbs');
+  let thumbsKey = '';
+
+  const buildThumbs = list => {
+    const key = list.map(it => it.src).join('|');
+    if (key !== thumbsKey) {
+      thumbsKey = key;
+      lbThumbs.innerHTML = '';
+      list.forEach((it, i) => {
+        const b = document.createElement('button');
+        b.type = 'button';
+        b.className = 'lightbox__thumb';
+        b.setAttribute('role', 'tab');
+        b.setAttribute('aria-label', `עבודה ${i + 1}`);
+        b.innerHTML = `<img src="${it.src}" alt="" loading="lazy" decoding="async">`;
+        b.addEventListener('click', () => render(i));
+        lbThumbs.appendChild(b);
+      });
+    }
+    $$('.lightbox__thumb', lbThumbs).forEach((b, i) => {
+      const on = i === current;
+      b.classList.toggle('is-on', on);
+      b.setAttribute('aria-selected', String(on));
+      if (on) b.scrollIntoView({ block: 'nearest', inline: 'center' });
+    });
   };
 
   const openLb = card => {
@@ -286,6 +322,39 @@ const CONTACT = {
     if (Math.abs(dx) > 50) render(current + (dx > 0 ? -1 : 1));
     x0 = null;
   }, { passive: true });
+
+  /* ---------- שיתוף התיק ---------- */
+  const shareBtn = $('#shareBtn');
+  if (shareBtn) {
+    const url = location.href.split('#')[0];
+    const label = $('strong', shareBtn);
+    const original = label ? label.textContent : '';
+
+    const flash = txt => {
+      if (!label) return;
+      label.textContent = txt;
+      setTimeout(() => { label.textContent = original; }, 2200);
+    };
+
+    shareBtn.addEventListener('click', async () => {
+      const data = {
+        title: 'אלמוג אלון · ספר — תיק עבודות',
+        text: 'תיק העבודות של אלמוג אלון, ספר במספרת שניר ומאיר',
+        url
+      };
+      // בנייד נפתחת תפריט השיתוף של המכשיר; במחשב מעתיקים ללוח
+      if (navigator.share) {
+        try { await navigator.share(data); return; }
+        catch { return; }               // המשתמש ביטל — לא עושים כלום
+      }
+      try {
+        await navigator.clipboard.writeText(url);
+        flash('הקישור הועתק ✓');
+      } catch {
+        flash(url);
+      }
+    });
+  }
 
   /* ---------- פרלקס עדין על שתי היצירות ---------- */
   /* רק transform, רק ב-rAF, ורק כשהאלמנט במסך — אפס פריסה מחדש. */
